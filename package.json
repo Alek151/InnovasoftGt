@@ -1,0 +1,19 @@
+{
+  "name": "innovasoftgt-landing",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Landing corporativa de INNOVASOFT GT.",
+  "scripts": {
+    "lint": "node scripts/lint.mjs",
+    "build": "node scripts/build.mjs"
+  },
+  "keywords": [
+    "INNOVASOFT GT",
+    "desarrollo de software",
+    "software a la medida",
+    "Guatemala",
+    "integraciones SAP"
+  ],
+  "author": "INNOVASOFT GT",
+  "license": "UNLICENSED"
+}

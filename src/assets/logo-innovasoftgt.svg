@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 170" role="img" aria-labelledby="title desc">
+  <title id="title">INNOVASOFT GT</title>
+  <desc id="desc">Logotipo tecnologico de INNOVASOFT GT con simbolo inspirado en circuitos y codigo.</desc>
+  <defs>
+    <linearGradient id="mark" x1="10" x2="150" y1="25" y2="145" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#0ea5e9"/>
+      <stop offset="1" stop-color="#20d3c2"/>
+    </linearGradient>
+  </defs>
+  <rect width="640" height="170" fill="none"/>
+  <g transform="translate(18 22)">
+    <path d="M63 8 118 40v64L63 136 8 104V40Z" fill="#071b34" stroke="url(#mark)" stroke-width="6"/>
+    <path d="M42 55 28 68l14 13M84 55l14 13-14 13M68 46 56 91" fill="none" stroke="#f2c94c" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M24 40h25M77 24v25M100 40h17M24 104h22M78 126v-24M100 104h18" fill="none" stroke="#20d3c2" stroke-width="5" stroke-linecap="round"/>
+    <circle cx="24" cy="40" r="6" fill="#0ea5e9"/>
+    <circle cx="77" cy="24" r="6" fill="#20d3c2"/>
+    <circle cx="118" cy="104" r="6" fill="#f2c94c"/>
+  </g>
+  <g fill="#f8fbff" font-family="Arial, Helvetica, sans-serif">
+    <text x="170" y="82" font-size="46" font-weight="800" letter-spacing="1">INNOVASOFT GT</text>
+    <text x="174" y="121" font-size="19" font-weight="700" fill="#20d3c2" letter-spacing="4">DESARROLLO DE SOFTWARE</text>
+  </g>
+</svg>
