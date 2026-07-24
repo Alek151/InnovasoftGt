@@ -6,7 +6,9 @@ const requiredFiles = [
   "src/index.html",
   "src/styles.css",
   "src/main.js",
-  "src/assets/logo-innovasoftgt.svg"
+  "src/assets/logo-innovasoftgt.svg",
+  "src/robots.txt",
+  "src/sitemap.xml"
 ];
 
 const errors = [];
@@ -28,6 +30,8 @@ if (errors.length === 0) {
     "meta name=\"keywords\"",
     "meta property=\"og:title\"",
     "meta property=\"og:url\"",
+    "application/ld+json",
+    "rel=\"sitemap\"",
     "https://innovasoftgt.com",
     "id=\"servicios\"",
     "id=\"experiencia\"",
