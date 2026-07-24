@@ -34,8 +34,7 @@ if (errors.length === 0) {
     "id=\"iniciativas\"",
     "id=\"proceso\"",
     "id=\"contacto\"",
-    "aria-label",
-    "rel=\"noopener noreferrer\""
+    "aria-label"
   ];
 
   for (const token of requiredHtml) {
@@ -66,6 +65,10 @@ if (errors.length === 0) {
 
   if (!js.includes("aria-expanded")) {
     errors.push("El menu movil debe actualizar aria-expanded.");
+  }
+
+  if (html.includes("target=\"_blank\"") && !html.includes("rel=\"noopener noreferrer\"")) {
+    errors.push("Los enlaces externos con target _blank deben usar rel=\"noopener noreferrer\".");
   }
 
   if (/SinFin|password|token|secret|api[_-]?key/i.test(`${html}\n${css}\n${js}`)) {
