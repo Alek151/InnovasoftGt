@@ -83,24 +83,28 @@
     </script>
   </head>
   <body>
-    <a class="skip-link" href="#contenido">Saltar al contenido principal</a>
+    <a class="skip-link" href="#contenido" data-i18n="skip">Saltar al contenido principal</a>
     <header class="site-header">
       <div class="container nav-shell">
         <a class="brand" href="#inicio" aria-label="Inicio INNOVASOFT GT">
           <img src="./assets/logo-innovasoftgt.svg" alt="INNOVASOFT GT - Desarrollo de Software" width="224" height="60">
         </a>
-        <button class="menu-button" type="button" data-menu-button aria-expanded="false" aria-controls="navegacion-principal" aria-label="Abrir navegacion">
+        <button class="menu-button" type="button" data-menu-button aria-expanded="false" aria-controls="navegacion-principal" aria-label="Abrir navegacion" data-i18n-aria-label="menuLabel">
           <span></span>
           <span></span>
           <span></span>
         </button>
         <nav class="primary-nav" id="navegacion-principal" data-nav-panel aria-label="Navegacion principal">
-          <a href="#servicios">Servicios</a>
-          <a href="#experiencia">Experiencia</a>
-          <a href="#iniciativas">Iniciativas</a>
-          <a href="#proceso">Proceso</a>
-          <a href="#contacto">Contacto</a>
-          <a class="nav-cta" href="#contacto">Hablemos</a>
+          <a href="#servicios" data-i18n="navServices">Servicios</a>
+          <a href="#experiencia" data-i18n="navExperience">Experiencia</a>
+          <a href="#iniciativas" data-i18n="navInitiatives">Iniciativas</a>
+          <a href="#proceso" data-i18n="navProcess">Proceso</a>
+          <a href="#contacto" data-i18n="navContact">Contacto</a>
+          <div class="language-toggle" role="group" aria-label="Seleccionar idioma" data-i18n-aria-label="languageLabel">
+            <button type="button" data-lang-option="es" aria-pressed="true">ES</button>
+            <button type="button" data-lang-option="en" aria-pressed="false">EN</button>
+          </div>
+          <a class="nav-cta" href="#contacto" data-i18n="navTalk">Hablemos</a>
         </nav>
       </div>
     </header>
@@ -109,26 +113,26 @@
       <section class="hero section" id="inicio" aria-labelledby="hero-title">
         <div class="container hero-grid">
           <div class="hero-copy">
-            <p class="eyebrow">Desarrollo de software en Guatemala</p>
-            <h1 id="hero-title">Convertimos procesos complejos en software que si funciona.</h1>
-            <p class="hero-text">Disenamos, desarrollamos e integramos soluciones digitales a la medida para organizaciones que necesitan ordenar su operacion, conectar sistemas, automatizar flujos y transformar ideas en productos reales.</p>
+            <p class="eyebrow" data-i18n="heroEyebrow">Desarrollo de software en Guatemala</p>
+            <h1 id="hero-title" data-i18n="heroTitle">Convertimos procesos complejos en software que si funciona.</h1>
+            <p class="hero-text" data-i18n="heroText">Disenamos, desarrollamos e integramos soluciones digitales a la medida para organizaciones que necesitan ordenar su operacion, conectar sistemas, automatizar flujos y transformar ideas en productos reales.</p>
             <div class="hero-actions">
-              <a class="button primary" href="mailto:contacto@innovasoftgt.com">Solicitar informacion</a>
-              <a class="button secondary" href="#experiencia">Conocer nuestra experiencia</a>
+              <a class="button primary" href="mailto:contacto@innovasoftgt.com" data-i18n="heroPrimary">Solicitar informacion</a>
+              <a class="button secondary" href="#experiencia" data-i18n="heroSecondary">Conocer nuestra experiencia</a>
             </div>
             <ul class="focus-list" aria-label="Areas destacadas">
-              <li>Software financiero</li>
-              <li>Recursos humanos</li>
-              <li>Integraciones SAP</li>
+              <li data-i18n="focusFinance">Software financiero</li>
+              <li data-i18n="focusHr">Recursos humanos</li>
+              <li data-i18n="focusSap">Integraciones SAP</li>
             </ul>
           </div>
           <div class="system-map" aria-label="Representacion de sistema conectado">
-            <div class="node main-node">Software a la medida</div>
-            <div class="node node-a">Operacion</div>
-            <div class="node node-b">Integraciones</div>
-            <div class="node node-c">Producto</div>
-            <div class="node node-d">Integrable</div>
-            <div class="node node-e">Escalable</div>
+            <div class="node main-node" data-i18n="nodeCustom">Software a la medida</div>
+            <div class="node node-a" data-i18n="nodeOperation">Operacion</div>
+            <div class="node node-b" data-i18n="nodeIntegrations">Integraciones</div>
+            <div class="node node-c" data-i18n="nodeProduct">Producto</div>
+            <div class="node node-d" data-i18n="nodeIntegrable">Integrable</div>
+            <div class="node node-e" data-i18n="nodeScalable">Escalable</div>
           </div>
         </div>
       </section>
@@ -136,34 +140,34 @@
       <section class="section services-section" id="servicios" aria-labelledby="services-title">
         <div class="container">
           <div class="section-heading">
-            <p class="eyebrow">Servicios</p>
-            <h2 id="services-title">Soluciones tecnologicas para operar mejor</h2>
-            <p>Construimos software claro, util e integrable, alineado al problema real de cada organizacion.</p>
+            <p class="eyebrow" data-i18n="servicesEyebrow">Servicios</p>
+            <h2 id="services-title" data-i18n="servicesTitle">Soluciones tecnologicas para operar mejor</h2>
+            <p data-i18n="servicesText">Construimos software claro, util e integrable, alineado al problema real de cada organizacion.</p>
           </div>
           <div class="cards-grid">
             <article class="service-card">
-              <h3>Software a la medida</h3>
-              <p>Aplicaciones, portales y sistemas internos construidos alrededor de reglas reales de negocio, usuarios, permisos, flujos y reportes.</p>
+              <h3 data-i18n="serviceCustomTitle">Software a la medida</h3>
+              <p data-i18n="serviceCustomText">Aplicaciones, portales y sistemas internos construidos alrededor de reglas reales de negocio, usuarios, permisos, flujos y reportes.</p>
             </article>
             <article class="service-card">
-              <h3>Soluciones financieras</h3>
-              <p>Herramientas para credito, pagos, cartera, cobros, conciliaciones, seguimiento operativo, trazabilidad y reporterias de control.</p>
+              <h3 data-i18n="serviceFinanceTitle">Soluciones financieras</h3>
+              <p data-i18n="serviceFinanceText">Herramientas para credito, pagos, cartera, cobros, conciliaciones, seguimiento operativo, trazabilidad y reporterias de control.</p>
             </article>
             <article class="service-card">
-              <h3>Recursos humanos</h3>
-              <p>Digitalizacion de solicitudes, aprobaciones, controles administrativos, expedientes, indicadores y procesos internos de gestion humana.</p>
+              <h3 data-i18n="serviceHrTitle">Recursos humanos</h3>
+              <p data-i18n="serviceHrText">Digitalizacion de solicitudes, aprobaciones, controles administrativos, expedientes, indicadores y procesos internos de gestion humana.</p>
             </article>
             <article class="service-card">
-              <h3>Integraciones empresariales</h3>
-              <p>Conexion entre sistemas mediante APIs, servicios SOAP y REST, integraciones SAP y plataformas internas.</p>
+              <h3 data-i18n="serviceIntegrationTitle">Integraciones empresariales</h3>
+              <p data-i18n="serviceIntegrationText">Conexion entre sistemas mediante APIs, servicios SOAP y REST, integraciones SAP y plataformas internas.</p>
             </article>
             <article class="service-card">
-              <h3>Automatizacion y datos</h3>
-              <p>Automatizacion de tareas repetitivas, consolidacion de informacion, indicadores, tableros y estructuras de datos para decidir mejor.</p>
+              <h3 data-i18n="serviceDataTitle">Automatizacion y datos</h3>
+              <p data-i18n="serviceDataText">Automatizacion de tareas repetitivas, consolidacion de informacion, indicadores, tableros y estructuras de datos para decidir mejor.</p>
             </article>
             <article class="service-card">
-              <h3>Diseno de productos digitales</h3>
-              <p>Definicion, prototipado y construccion de productos digitales preparados para evolucionar por etapas.</p>
+              <h3 data-i18n="serviceProductTitle">Diseno de productos digitales</h3>
+              <p data-i18n="serviceProductText">Definicion, prototipado y construccion de productos digitales preparados para evolucionar por etapas.</p>
             </article>
           </div>
         </div>
@@ -172,64 +176,64 @@
       <section class="section experience-section" id="experiencia" aria-labelledby="experience-title">
         <div class="container experience-layout">
           <div>
-            <p class="eyebrow">Experiencia tecnica</p>
-            <h2 id="experience-title">Experiencia construyendo software para operacion real</h2>
-            <p>La capacidad de INNOVASOFT GT nace de resolver necesidades practicas: sistemas administrativos, procesos financieros, flujos de recursos humanos, integraciones con plataformas empresariales, reporterias y automatizaciones que deben funcionar en el dia a dia.</p>
-            <p>No vendemos plantillas. Analizamos reglas, dependencias, datos, usuarios, permisos e integraciones para construir soluciones mantenibles y preparadas para crecer.</p>
+            <p class="eyebrow" data-i18n="experienceEyebrow">Experiencia tecnica</p>
+            <h2 id="experience-title" data-i18n="experienceTitle">Experiencia construyendo software para operacion real</h2>
+            <p data-i18n="experienceTextA">La capacidad de INNOVASOFT GT nace de resolver necesidades practicas: sistemas administrativos, procesos financieros, flujos de recursos humanos, integraciones con plataformas empresariales, reporterias y automatizaciones que deben funcionar en el dia a dia.</p>
+            <p data-i18n="experienceTextB">No vendemos plantillas. Analizamos reglas, dependencias, datos, usuarios, permisos e integraciones para construir soluciones mantenibles y preparadas para crecer.</p>
           </div>
           <div class="experience-stack" aria-label="Areas de experiencia">
             <article>
-              <span>Finanzas</span>
-              <h3>Credito, pagos, cartera y cobros</h3>
-              <p>Modelado de flujos financieros, validaciones, estados, reportes, control operativo y seguimiento de informacion critica.</p>
+              <span data-i18n="expFinanceEyebrow">Finanzas</span>
+              <h3 data-i18n="expFinanceTitle">Credito, pagos, cartera y cobros</h3>
+              <p data-i18n="expFinanceText">Modelado de flujos financieros, validaciones, estados, reportes, control operativo y seguimiento de informacion critica.</p>
             </article>
             <article>
-              <span>Operacion</span>
-              <h3>Administracion y recursos humanos</h3>
-              <p>Procesos internos, solicitudes, aprobaciones, expedientes, trazabilidad, roles y automatizacion de tareas recurrentes.</p>
+              <span data-i18n="expOperationEyebrow">Operacion</span>
+              <h3 data-i18n="expOperationTitle">Administracion y recursos humanos</h3>
+              <p data-i18n="expOperationText">Procesos internos, solicitudes, aprobaciones, expedientes, trazabilidad, roles y automatizacion de tareas recurrentes.</p>
             </article>
             <article>
-              <span>Integracion</span>
-              <h3>SAP, APIs, SOAP y REST</h3>
-              <p>Conexion entre sistemas empresariales, servicios externos, bases de datos, plataformas internas y productos digitales.</p>
+              <span data-i18n="expIntegrationEyebrow">Integracion</span>
+              <h3 data-i18n="expIntegrationTitle">SAP, APIs, SOAP y REST</h3>
+              <p data-i18n="expIntegrationText">Conexion entre sistemas empresariales, servicios externos, bases de datos, plataformas internas y productos digitales.</p>
             </article>
             <article>
-              <span>Producto</span>
-              <h3>Frontend, backend y arquitectura</h3>
-              <p>Interfaces claras, servicios mantenibles, documentacion, pruebas, despliegues y evolucion por etapas.</p>
+              <span data-i18n="expProductEyebrow">Producto</span>
+              <h3 data-i18n="expProductTitle">Frontend, backend y arquitectura</h3>
+              <p data-i18n="expProductText">Interfaces claras, servicios mantenibles, documentacion, pruebas, despliegues y evolucion por etapas.</p>
             </article>
           </div>
         </div>
         <div class="container capability-strip" aria-label="Capacidades tecnicas">
-          <span>Sistemas empresariales</span>
+          <span data-i18n="capEnterprise">Sistemas empresariales</span>
           <span>APIs</span>
-          <span>Bases de datos</span>
-          <span>Reporteria</span>
-          <span>Indicadores</span>
-          <span>Automatizacion</span>
-          <span>Documentacion</span>
-          <span>Despliegues</span>
+          <span data-i18n="capDatabases">Bases de datos</span>
+          <span data-i18n="capReports">Reporteria</span>
+          <span data-i18n="capIndicators">Indicadores</span>
+          <span data-i18n="capAutomation">Automatizacion</span>
+          <span data-i18n="capDocs">Documentacion</span>
+          <span data-i18n="capDeployments">Despliegues</span>
         </div>
       </section>
 
       <section class="section trust-section" aria-labelledby="trust-title">
         <div class="container trust-layout">
           <div>
-            <p class="eyebrow">Como trabajamos</p>
-            <h2 id="trust-title">Claridad tecnica antes de escribir codigo</h2>
+            <p class="eyebrow" data-i18n="trustEyebrow">Como trabajamos</p>
+            <h2 id="trust-title" data-i18n="trustTitle">Claridad tecnica antes de escribir codigo</h2>
           </div>
           <div class="trust-grid">
             <article>
-              <h3>Entendemos el proceso</h3>
-              <p>Levantamos reglas, excepciones, usuarios, aprobaciones, datos y puntos de integracion antes de proponer una solucion.</p>
+              <h3 data-i18n="trustProcessTitle">Entendemos el proceso</h3>
+              <p data-i18n="trustProcessText">Levantamos reglas, excepciones, usuarios, aprobaciones, datos y puntos de integracion antes de proponer una solucion.</p>
             </article>
             <article>
-              <h3>Construimos con criterio</h3>
-              <p>Priorizamos arquitectura simple, mantenible, documentada y alineada a la operacion real de la organizacion.</p>
+              <h3 data-i18n="trustBuildTitle">Construimos con criterio</h3>
+              <p data-i18n="trustBuildText">Priorizamos arquitectura simple, mantenible, documentada y alineada a la operacion real de la organizacion.</p>
             </article>
             <article>
-              <h3>Evolucionamos el sistema</h3>
-              <p>El software queda preparado para mejorar por etapas conforme cambian los procesos, el volumen y las necesidades.</p>
+              <h3 data-i18n="trustEvolveTitle">Evolucionamos el sistema</h3>
+              <p data-i18n="trustEvolveText">El software queda preparado para mejorar por etapas conforme cambian los procesos, el volumen y las necesidades.</p>
             </article>
           </div>
         </div>
@@ -238,15 +242,15 @@
       <section class="section initiative-section" id="iniciativas" aria-labelledby="initiative-title">
         <div class="container initiative-card">
           <div>
-            <p class="eyebrow">Innovacion propia</p>
+            <p class="eyebrow" data-i18n="initiativeEyebrow">Innovacion propia</p>
             <h2 id="initiative-title">Explora Guatemala</h2>
-            <p>Iniciativa tecnologica orientada a fortalecer la experiencia de descubrir Guatemala y generar nuevas formas de conexion entre personas, destinos y oportunidades locales.</p>
+            <p data-i18n="initiativeText">Iniciativa tecnologica orientada a fortalecer la experiencia de descubrir Guatemala y generar nuevas formas de conexion entre personas, destinos y oportunidades locales.</p>
           </div>
           <ul class="status-list">
-            <li>Iniciativa en desarrollo.</li>
-            <li>En etapa de estructuracion estrategica.</li>
-            <li>En busqueda de alianzas para validacion y desarrollo.</li>
-            <li>Propuesta independiente de INNOVASOFT GT.</li>
+            <li data-i18n="initiativeStatusA">Iniciativa en desarrollo.</li>
+            <li data-i18n="initiativeStatusB">En etapa de estructuracion estrategica.</li>
+            <li data-i18n="initiativeStatusC">En busqueda de alianzas para validacion y desarrollo.</li>
+            <li data-i18n="initiativeStatusD">Propuesta independiente de INNOVASOFT GT.</li>
           </ul>
         </div>
       </section>
@@ -254,29 +258,29 @@
       <section class="section process-section" id="proceso" aria-labelledby="process-title">
         <div class="container">
           <div class="section-heading">
-            <p class="eyebrow">Proceso de trabajo</p>
-            <h2 id="process-title">De problema operativo a solucion evolutiva</h2>
+            <p class="eyebrow" data-i18n="processEyebrow">Proceso de trabajo</p>
+            <h2 id="process-title" data-i18n="processTitle">De problema operativo a solucion evolutiva</h2>
           </div>
           <div class="process-grid">
             <article>
               <span>01</span>
-              <h3>Entender</h3>
-              <p>Analizamos el problema, el contexto operativo y las reglas que debe respetar la solucion.</p>
+              <h3 data-i18n="processUnderstandTitle">Entender</h3>
+              <p data-i18n="processUnderstandText">Analizamos el problema, el contexto operativo y las reglas que debe respetar la solucion.</p>
             </article>
             <article>
               <span>02</span>
-              <h3>Disenar</h3>
-              <p>Definimos alcance, arquitectura, flujos, integraciones y una ruta de desarrollo clara.</p>
+              <h3 data-i18n="processDesignTitle">Disenar</h3>
+              <p data-i18n="processDesignText">Definimos alcance, arquitectura, flujos, integraciones y una ruta de desarrollo clara.</p>
             </article>
             <article>
               <span>03</span>
-              <h3>Construir</h3>
-              <p>Desarrollamos por etapas, validando funcionalidad, calidad, seguridad y facilidad de uso.</p>
+              <h3 data-i18n="processBuildTitle">Construir</h3>
+              <p data-i18n="processBuildText">Desarrollamos por etapas, validando funcionalidad, calidad, seguridad y facilidad de uso.</p>
             </article>
             <article>
               <span>04</span>
-              <h3>Evolucionar</h3>
-              <p>Mejoramos el sistema conforme crecen la operacion, los usuarios y las necesidades del negocio.</p>
+              <h3 data-i18n="processEvolveTitle">Evolucionar</h3>
+              <p data-i18n="processEvolveText">Mejoramos el sistema conforme crecen la operacion, los usuarios y las necesidades del negocio.</p>
             </article>
           </div>
         </div>
@@ -285,22 +289,22 @@
       <section class="section seo-section" aria-labelledby="seo-title">
         <div class="container seo-layout">
           <div>
-            <p class="eyebrow">Soluciones para empresas</p>
-            <h2 id="seo-title">Desarrollo de software a la medida en Guatemala</h2>
-            <p>INNOVASOFT GT apoya a empresas, organizaciones e instituciones que necesitan crear o mejorar sistemas digitales para administrar procesos, integrar plataformas, automatizar tareas y convertir informacion operativa en reportes utiles.</p>
+            <p class="eyebrow" data-i18n="seoEyebrow">Soluciones para empresas</p>
+            <h2 id="seo-title" data-i18n="seoTitle">Desarrollo de software a la medida en Guatemala</h2>
+            <p data-i18n="seoText">INNOVASOFT GT apoya a empresas, organizaciones e instituciones que necesitan crear o mejorar sistemas digitales para administrar procesos, integrar plataformas, automatizar tareas y convertir informacion operativa en reportes utiles.</p>
           </div>
           <div class="seo-columns">
             <article>
-              <h3>Para operaciones internas</h3>
-              <p>Sistemas administrativos, portales web, flujos de aprobacion, recursos humanos, expedientes, permisos, trazabilidad y gestion documental.</p>
+              <h3 data-i18n="seoInternalTitle">Para operaciones internas</h3>
+              <p data-i18n="seoInternalText">Sistemas administrativos, portales web, flujos de aprobacion, recursos humanos, expedientes, permisos, trazabilidad y gestion documental.</p>
             </article>
             <article>
-              <h3>Para procesos financieros</h3>
-              <p>Software financiero, credito, pagos, cartera, cobros, conciliaciones, indicadores, controles operativos y reporteria gerencial.</p>
+              <h3 data-i18n="seoFinanceTitle">Para procesos financieros</h3>
+              <p data-i18n="seoFinanceText">Software financiero, credito, pagos, cartera, cobros, conciliaciones, indicadores, controles operativos y reporteria gerencial.</p>
             </article>
             <article>
-              <h3>Para integraciones y datos</h3>
-              <p>Integraciones SAP, APIs REST, servicios SOAP, bases de datos, sincronizacion de sistemas, automatizacion de procesos y tableros de indicadores.</p>
+              <h3 data-i18n="seoDataTitle">Para integraciones y datos</h3>
+              <p data-i18n="seoDataText">Integraciones SAP, APIs REST, servicios SOAP, bases de datos, sincronizacion de sistemas, automatizacion de procesos y tableros de indicadores.</p>
             </article>
           </div>
         </div>
@@ -309,16 +313,16 @@
       <section class="section contact-section" id="contacto" aria-labelledby="contact-title">
         <div class="container contact-layout">
           <div>
-            <p class="eyebrow">Contacto</p>
-            <h2 id="contact-title">Solicita informacion sobre tu proyecto</h2>
-            <p>Para conversar sobre una solucion, alianza o necesidad tecnica, escribe al correo de contacto con una breve descripcion del proceso, sistema o idea que quieres desarrollar.</p>
+            <p class="eyebrow" data-i18n="contactEyebrow">Contacto</p>
+            <h2 id="contact-title" data-i18n="contactTitle">Solicita informacion sobre tu proyecto</h2>
+            <p data-i18n="contactText">Para conversar sobre una solucion, alianza o necesidad tecnica, escribe al correo de contacto con una breve descripcion del proceso, sistema o idea que quieres desarrollar.</p>
           </div>
           <address class="contact-card">
             <strong>INNOVASOFT GT</strong>
-            <span>Desarrollo de Software</span>
+            <span data-i18n="contactRole">Desarrollo de Software</span>
             <span>Guatemala</span>
             <a class="email-link" href="mailto:contacto@innovasoftgt.com">contacto@innovasoftgt.com</a>
-            <small>Canal principal para solicitudes de informacion, propuestas y reuniones tecnicas.</small>
+            <small data-i18n="contactNote">Canal principal para solicitudes de informacion, propuestas y reuniones tecnicas.</small>
           </address>
         </div>
       </section>
@@ -327,7 +331,7 @@
     <footer class="site-footer">
       <div class="container footer-content">
         <p>&copy; 2026 INNOVASOFT GT</p>
-        <p>Software con proposito. Tecnologia con direccion.</p>
+        <p data-i18n="footerTagline">Software con proposito. Tecnologia con direccion.</p>
       </div>
     </footer>
 
