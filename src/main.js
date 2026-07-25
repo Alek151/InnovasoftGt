@@ -5,7 +5,7 @@ const languageButtons = document.querySelectorAll("[data-lang-option]");
 const translatableNodes = document.querySelectorAll("[data-i18n]");
 const translatableLabels = document.querySelectorAll("[data-i18n-aria-label]");
 const revealTargets = document.querySelectorAll(
-  ".section, .service-card, .experience-stack article, .trust-grid article, .feature-grid article, .standards-list article, .process-grid article, .seo-columns article, .initiative-card, .contact-card"
+  ".section, .service-card, .experience-stack article, .trust-grid article, .feature-grid article, .standards-list article, .process-grid article, .seo-columns article, .tech-matrix article, .project-grid article, .faq-list details, .initiative-card, .final-cta, .contact-card"
 );
 
 const translations = {
@@ -125,6 +125,41 @@ const translations = {
     seoFinanceText: "Software financiero, crédito, pagos, cartera, cobros, conciliaciones, indicadores, controles operativos y reportería gerencial.",
     seoDataTitle: "Para integraciones y datos",
     seoDataText: "Integraciones SAP, APIs REST, servicios SOAP, bases de datos, sincronización de sistemas, automatización de procesos y tableros de indicadores.",
+    techEyebrow: "Tecnologías",
+    techTitle: "Herramientas modernas para sistemas mantenibles",
+    techText: "Seleccionamos tecnologías según el objetivo del proyecto, la infraestructura disponible y la capacidad de mantenimiento que necesita cada organización.",
+    techFrontendLabel: "Frontend",
+    techBackendLabel: "Backend",
+    techDataLabel: "Datos",
+    techCloudLabel: "Cloud y despliegues",
+    techEnterpriseLabel: "Empresa",
+    techQualityLabel: "Calidad",
+    projectTypesEyebrow: "Tipos de proyectos",
+    projectTypesTitle: "Soluciones que una empresa puede empezar por etapas",
+    projectTypesText: "Podemos iniciar con un módulo crítico, una integración puntual o un producto completo, según la urgencia, presupuesto y madurez del proceso.",
+    projectAdminTitle: "Sistemas administrativos",
+    projectAdminText: "Control de solicitudes, aprobaciones, expedientes, inventarios, tareas, usuarios y operaciones internas.",
+    projectPortalTitle: "Portales web internos",
+    projectPortalText: "Espacios privados para clientes, colaboradores, proveedores o equipos operativos con permisos y trazabilidad.",
+    projectDashboardTitle: "Dashboards ejecutivos",
+    projectDashboardText: "Indicadores, reportes y vistas de control para tomar decisiones con información clara y actualizada.",
+    projectAutomationTitle: "Automatizaciones",
+    projectAutomationText: "Procesos que reducen trabajo manual, consolidan datos y conectan herramientas que hoy operan separadas.",
+    faqEyebrow: "Preguntas frecuentes",
+    faqTitle: "Dudas comunes antes de iniciar",
+    faqText: "Estas respuestas ayudan a definir si conviene iniciar con diagnóstico, prototipo, integración o desarrollo completo.",
+    faqTimeQuestion: "¿Cuánto tarda un proyecto?",
+    faqTimeAnswer: "Depende del alcance. Un módulo pequeño puede trabajarse por semanas; una plataforma completa se planifica por etapas para validar valor desde temprano.",
+    faqRemoteQuestion: "¿Trabajan con empresas fuera de Guatemala?",
+    faqRemoteAnswer: "Sí. Podemos trabajar remoto con reuniones periódicas, documentación, entregas por hitos y coordinación por herramientas digitales.",
+    faqSystemsQuestion: "¿Pueden integrarse con sistemas existentes?",
+    faqSystemsAnswer: "Sí. Analizamos APIs, bases de datos, archivos, servicios SOAP o REST y plataformas empresariales para definir la integración más estable.",
+    faqSupportQuestion: "¿Ofrecen soporte después de entregar?",
+    faqSupportAnswer: "Sí. Podemos acordar soporte, mejoras evolutivas, monitoreo, correcciones y acompañamiento para nuevos módulos.",
+    finalCtaEyebrow: "Siguiente paso",
+    finalCtaTitle: "¿Tu operación todavía depende de Excel, correos o tareas manuales?",
+    finalCtaText: "Podemos revisar el proceso, identificar oportunidades de automatización y proponer una ruta de desarrollo realista.",
+    finalCtaButton: "Escribir sobre mi proyecto",
     contactEyebrow: "Contacto",
     contactTitle: "Solicita información sobre tu proyecto",
     contactText: "Para conversar sobre una solución, alianza o necesidad técnica, escribe al correo de contacto con una breve descripción del proceso, sistema o idea que quieres desarrollar.",
@@ -248,6 +283,41 @@ const translations = {
     seoFinanceText: "Financial software, credit, payments, portfolio, collections, reconciliations, indicators, operational controls and management reporting.",
     seoDataTitle: "For integrations and data",
     seoDataText: "SAP integrations, REST APIs, SOAP services, databases, system synchronization, process automation and indicator dashboards.",
+    techEyebrow: "Technologies",
+    techTitle: "Modern tools for maintainable systems",
+    techText: "We select technologies according to the project objective, available infrastructure and the maintenance capacity each organization needs.",
+    techFrontendLabel: "Frontend",
+    techBackendLabel: "Backend",
+    techDataLabel: "Data",
+    techCloudLabel: "Cloud and deployments",
+    techEnterpriseLabel: "Enterprise",
+    techQualityLabel: "Quality",
+    projectTypesEyebrow: "Project types",
+    projectTypesTitle: "Solutions a company can start in stages",
+    projectTypesText: "We can begin with a critical module, a specific integration or a complete product, depending on urgency, budget and process maturity.",
+    projectAdminTitle: "Administrative systems",
+    projectAdminText: "Control of requests, approvals, records, inventories, tasks, users and internal operations.",
+    projectPortalTitle: "Internal web portals",
+    projectPortalText: "Private spaces for clients, collaborators, providers or operations teams with permissions and traceability.",
+    projectDashboardTitle: "Executive dashboards",
+    projectDashboardText: "Indicators, reports and control views to make decisions with clear and updated information.",
+    projectAutomationTitle: "Automations",
+    projectAutomationText: "Processes that reduce manual work, consolidate data and connect tools that currently operate separately.",
+    faqEyebrow: "FAQ",
+    faqTitle: "Common questions before starting",
+    faqText: "These answers help define whether it is better to start with diagnosis, prototype, integration or full development.",
+    faqTimeQuestion: "How long does a project take?",
+    faqTimeAnswer: "It depends on scope. A small module can be handled in weeks; a complete platform is planned in stages to validate value early.",
+    faqRemoteQuestion: "Do you work with companies outside Guatemala?",
+    faqRemoteAnswer: "Yes. We can work remotely with periodic meetings, documentation, milestone deliveries and coordination through digital tools.",
+    faqSystemsQuestion: "Can you integrate with existing systems?",
+    faqSystemsAnswer: "Yes. We analyze APIs, databases, files, SOAP or REST services and enterprise platforms to define the most stable integration.",
+    faqSupportQuestion: "Do you provide support after delivery?",
+    faqSupportAnswer: "Yes. We can agree on support, evolutionary improvements, monitoring, fixes and guidance for new modules.",
+    finalCtaEyebrow: "Next step",
+    finalCtaTitle: "Does your operation still depend on Excel, email or manual tasks?",
+    finalCtaText: "We can review the process, identify automation opportunities and propose a realistic development path.",
+    finalCtaButton: "Write about my project",
     contactEyebrow: "Contact",
     contactTitle: "Request information about your project",
     contactText: "To discuss a solution, alliance or technical need, email us with a brief description of the process, system or idea you want to develop.",
@@ -316,7 +386,7 @@ function applyLanguage(language) {
 }
 
 function decorateInitialLetters() {
-  document.querySelectorAll("h1, h2, h3").forEach((heading) => {
+  document.querySelectorAll("h1, h2").forEach((heading) => {
     const text = heading.textContent?.trim();
     if (!text) return;
 
