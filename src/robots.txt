@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://innovasoftgt.com/sitemap.xml
+Sitemap: https://www.innovasoftgt.com/sitemap.xml

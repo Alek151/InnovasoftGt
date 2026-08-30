@@ -32,11 +32,12 @@ if (errors.length === 0) {
     "meta property=\"og:url\"",
     "application/ld+json",
     "rel=\"sitemap\"",
-    "https://innovasoftgt.com",
-    "id=\"servicios\"",
+    "https://www.innovasoftgt.com",
+    "id=\"soluciones\"",
+    "id=\"metodo\"",
     "id=\"experiencia\"",
     "id=\"iniciativas\"",
-    "id=\"proceso\"",
+    "id=\"tecnologias\"",
     "id=\"contacto\"",
     "aria-label"
   ];

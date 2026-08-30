@@ -1,6 +1,6 @@
 # INNOVASOFT GT
 
-Repositorio oficial de la landing corporativa de INNOVASOFT GT.
+Repositorio oficial del sitio corporativo de INNOVASOFT GT.
 
 ## Desarrollo local
 
@@ -14,4 +14,4 @@ La version compilada se genera en `dist/`.
 
 ## Dominio previsto
 
-https://innovasoftgt.com
+https://www.innovasoftgt.com
