@@ -33,11 +33,11 @@ if (errors.length === 0) {
     "application/ld+json",
     "rel=\"sitemap\"",
     "https://innovasoftgt.com",
-    "id=\"servicios\"",
     "id=\"experiencia\"",
-    "id=\"iniciativas\"",
-    "id=\"proceso\"",
-    "id=\"contacto\"",
+    "id=\"pasaporte\"",
+    "id=\"viaja\"",
+    "id=\"comunidad\"",
+    "id=\"muy-pronto\"",
     "aria-label"
   ];
 
