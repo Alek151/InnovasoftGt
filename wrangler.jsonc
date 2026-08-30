@@ -1,9 +1,15 @@
 {
   "$schema": "node_modules/wrangler/config-schema.json",
-  "name": "innovasoftgt",
+  "name": "nomada",
   "main": "dist/server/index.js",
   "compatibility_date": "2026-07-24",
   "compatibility_flags": ["nodejs_compat"],
+  "routes": [
+    {
+      "pattern": "nomada.innovasoftgt.com",
+      "custom_domain": true
+    }
+  ],
   "assets": {
     "directory": "dist/client",
     "binding": "ASSETS"

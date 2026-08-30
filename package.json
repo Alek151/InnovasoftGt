@@ -1,8 +1,8 @@
 {
-  "name": "innovasoftgt-landing",
+  "name": "nomada-landing",
   "version": "1.0.0",
   "private": true,
-  "description": "Landing corporativa de INNOVASOFT GT.",
+  "description": "Landing promocional de Nomada para viajeros en Guatemala.",
   "scripts": {
     "lint": "node scripts/lint.mjs",
     "build": "node scripts/build.mjs"
