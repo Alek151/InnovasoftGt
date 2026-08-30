@@ -1,6 +1,6 @@
 # INNOVASOFT GT
 
-Landing promocional de Nómada, la aplicación de aventuras de INNOVASOFT GT para descubrir Guatemala, recorrer rutas y coleccionar sellos digitales.
+Repositorio oficial de la landing corporativa de INNOVASOFT GT.
 
 ## Desarrollo local
 
