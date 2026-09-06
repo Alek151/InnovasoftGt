@@ -21,7 +21,19 @@ writeFileSync(
   join(server, "index.js"),
   `export default {
   async fetch(request, env) {
-    return env.ASSETS.fetch(request);
+    const response = await env.ASSETS.fetch(request);
+    const contentType = response.headers.get("content-type") || "";
+    if (!contentType.includes("text/html")) return response;
+
+    // La clave es pública por diseño de Google Maps, pero se inyecta en ejecución
+    // para no almacenarla en el repositorio ni en los archivos estáticos.
+    const page = (await response.text()).replace(
+      "__NOMADA_GOOGLE_MAPS_KEY__",
+      JSON.stringify(env.GOOGLE_MAPS_API_KEY || "")
+    );
+    const headers = new Headers(response.headers);
+    headers.set("content-type", "text/html; charset=UTF-8");
+    return new Response(page, { status: response.status, statusText: response.statusText, headers });
   }
 };
 `,

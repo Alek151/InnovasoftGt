@@ -24,6 +24,7 @@
     <meta name="twitter:description" content="Mapa, rutas, visitas verificadas, sellos e insignias. Muy pronto en iOS y Android.">
     <meta name="twitter:image" content="https://innovasoftgt.com/assets/nomada-social.png">
     <link rel="stylesheet" href="./styles.css">
+    <script>window.NOMADA_RUNTIME_CONFIG={googleMapsKey:__NOMADA_GOOGLE_MAPS_KEY__};</script>
     <script type="application/ld+json">
       {"@context":"https://schema.org","@type":"MobileApplication","name":"Nómada","operatingSystem":"iOS, Android","applicationCategory":"TravelApplication","description":"Aplicación para descubrir Guatemala, recorrer rutas y coleccionar sellos e insignias de viaje.","author":{"@type":"Organization","name":"INNOVASOFT GT","url":"https://innovasoftgt.com/"}}
     </script>
@@ -36,7 +37,7 @@
         <a class="brand" href="#inicio" aria-label="Nómada, inicio"><span class="brand-mark" aria-hidden="true"><i></i></span><span class="brand-copy"><strong>NÓMADA</strong><small data-i18n="brandBy">por INNOVASOFT GT</small></span></a>
         <button class="menu-button" type="button" data-menu-button aria-expanded="false" aria-controls="navegacion" aria-label="Abrir menú"><span></span><span></span><span></span></button>
         <nav class="primary-nav" id="navegacion" data-nav-panel aria-label="Navegación principal">
-          <a href="#experiencia" data-i18n="navExperience">La experiencia</a><a href="#pasaporte" data-i18n="navPassport">Pasaporte</a><a href="#viaja" data-i18n="navTravel">Viaja preparado</a><a href="#comunidad" data-i18n="navCommunity">Comunidad</a><a href="#negocios" data-i18n="navBusiness">Para negocios</a>
+          <a href="#experiencia" data-i18n="navExperience">La experiencia</a><a href="#pasaporte" data-i18n="navPassport">Pasaporte</a><a href="#explora" data-i18n="navExplore">Explorar el mapa</a><a href="#viaja" data-i18n="navTravel">Viaja preparado</a><a href="#comunidad" data-i18n="navCommunity">Comunidad</a><a href="#negocios" data-i18n="navBusiness">Para negocios</a>
           <div class="language-toggle" aria-label="Seleccionar idioma"><button type="button" data-lang-option="es" aria-pressed="true">ES</button><button type="button" data-lang-option="en" aria-pressed="false">EN</button></div>
           <a class="nav-cta" href="#muy-pronto" data-i18n="navNotify">Avísame</a>
         </nav>
@@ -67,6 +68,33 @@
       <section class="travel section" id="viaja" aria-labelledby="travel-title"><div class="container"><div class="section-heading reveal"><div><p class="eyebrow dark"><span></span><span data-i18n="travelEyebrow">Confianza en el camino</span></p><h2 id="travel-title" data-i18n="travelTitle">Viaja preparado, incluso sin señal.</h2></div><p data-i18n="travelText">Guarda lo esencial de una ruta y consulta información útil cuando la cobertura deje de acompañarte.</p></div><div class="travel-grid"><article class="travel-card large reveal"><span class="card-number">01</span><div class="offline-map" aria-hidden="true"><i></i><i></i><i></i><span>OFFLINE</span></div><h3 data-i18n="offlineTitle">Tus rutas viajan contigo</h3><p data-i18n="offlineText">Descarga paradas, datos esenciales y contactos útiles antes de salir.</p></article><article class="travel-card reveal"><span class="card-icon">◷</span><h3 data-i18n="freshInfoTitle">Información con contexto</h3><p data-i18n="freshInfoText">Precios, horarios, dificultad, equipo recomendado y fecha de verificación.</p></article><article class="travel-card terracotta reveal"><span class="card-icon">⌁</span><h3 data-i18n="privacyTitle">Tu ubicación es tuya</h3><p data-i18n="privacyText">La app solicita ubicación solo al ofrecer un beneficio claro y nunca publica tu posición exacta por defecto.</p></article><article class="travel-card reveal"><span class="card-icon">↗</span><h3 data-i18n="navigateTitle">Llega con tu mapa favorito</h3><p data-i18n="navigateText">Abre la navegación sin quedar atado a un solo proveedor.</p></article></div></div></section>
       <section class="community section" id="comunidad" aria-labelledby="community-title"><div class="container community-grid"><div class="community-visual reveal" aria-hidden="true"><div class="photo-card photo-one"><span>ATITLÁN</span></div><div class="photo-card photo-two"><span>ANTIGUA</span></div><div class="photo-card photo-three"><span>ACATENANGO</span></div><div class="badge-card"><span>✦</span><div><small>NUEVA INSIGNIA</small><b>Conquistador de volcanes</b></div></div></div><div class="community-copy reveal"><p class="eyebrow dark"><span></span><span data-i18n="communityEyebrow">Experiencias reales</span></p><h2 id="community-title" data-i18n="communityTitle">Recuerdos que permanecen.</h2><p data-i18n="communityText">Crea álbumes por viaje, guarda notas y fotos en privado o comparte tus logros con amigos y otros exploradores. Tú decides quién ve cada historia.</p><div class="community-points"><span><b>∞</b><small data-i18n="albums">Álbumes de aventuras</small></span><span><b>3</b><small data-i18n="privacyLevels">Niveles de privacidad</small></span><span><b>1</b><small data-i18n="travelerIdentity">Identidad viajera</small></span></div></div></div></section>
       <section class="world section" aria-labelledby="world-title"><div class="world-map" aria-hidden="true"><span class="world-dot dot-gt"></span><span class="world-dot dot-mx"></span><span class="world-dot dot-cr"></span><span class="world-dot dot-es"></span><span class="world-route route-1"></span><span class="world-route route-2"></span></div><div class="container world-copy reveal"><p class="eyebrow light"><span></span><span data-i18n="worldEyebrow">Guatemala es el primer capítulo</span></p><h2 id="world-title" data-i18n="worldTitle">Un pasaporte que no termina en la frontera.</h2><p data-i18n="worldText">Nómada nace para recorrer Guatemala y sueña con acompañarte, capítulo a capítulo, por nuevos países y nuevas historias.</p><div class="world-steps"><span><b>01</b> Guatemala</span><i></i><span><b>02</b> Centroamérica</span><i></i><span><b>03</b> Mundo</span></div></div></section>
+      <section class="explore-map section" id="explora" aria-labelledby="explore-map-title">
+        <div class="container">
+          <div class="explore-map-heading reveal">
+            <div>
+              <p class="eyebrow dark"><span></span><span>Explora sin fronteras</span></p>
+              <h2 id="explore-map-title">Echa un vistazo a los puntos turísticos de tu país y el mundo.</h2>
+            </div>
+            <p>Una selección viva de lugares, culturas y aventuras que ya forman parte del mapa de Nómada. Elige un país, toca un pin y comienza a imaginar tu próxima historia.</p>
+          </div>
+          <div class="explore-map-shell reveal" data-explore-map-section>
+            <div class="explore-map-toolbar">
+              <div class="explore-map-summary"><span class="live-dot" aria-hidden="true"></span><p><b data-map-total>Destinos Nómada</b><small data-map-summary>Cargando el mapa de exploración…</small></p></div>
+              <div class="country-filter" data-country-filter aria-label="Filtrar destinos por país"><button class="country-chip is-active" type="button" data-country="">Todo el mundo</button></div>
+            </div>
+            <div class="explore-map-canvas" data-explore-map role="application" aria-label="Mapa de destinos turísticos Nómada">
+              <div class="map-loading" data-map-loading><span class="map-compass" aria-hidden="true">✦</span><p>Preparando destinos para ti…</p></div>
+              <div class="map-unavailable" data-map-unavailable hidden><span aria-hidden="true">⌖</span><p>El mapa interactivo no está disponible en este momento. Aún puedes descubrir los destinos destacados aquí abajo.</p></div>
+            </div>
+            <div class="explore-map-bottom">
+              <div><span class="map-caption-kicker">PUNTOS NÓMADA</span><p data-map-caption>Los lugares disponibles aparecerán aquí.</p></div>
+              <a class="map-business-cta" href="#negocios"><span>¿Tu negocio merece estar en este mapa?</span><b aria-hidden="true">↗</b></a>
+            </div>
+          </div>
+          <div class="destination-preview" data-destination-preview aria-live="polite" aria-busy="true"></div>
+          <div class="explore-map-cta reveal"><div><span class="business-map-icon" aria-hidden="true">✦</span><div><p class="eyebrow dark"><span></span><span>Haz que te encuentren</span></p><h3>Haz de tu negocio una parada en la ruta del viajero.</h3><p>Muéstralo con ubicación, fotos y datos útiles; acompáñalo con una experiencia que los viajeros quieran guardar en su pasaporte.</p></div></div><a class="button primary" href="#negocios"><span>Quiero aparecer en Nómada</span><b aria-hidden="true">↗</b></a></div>
+        </div>
+      </section>
       <section class="business section" id="negocios" aria-labelledby="business-title">
         <div class="container business-grid">
           <div class="business-story reveal">
