@@ -126,3 +126,49 @@ document.querySelectorAll("[data-lang-option]").forEach((button) => button.addEv
 let savedLanguage = "es";
 try { savedLanguage = localStorage.getItem("nomada-language") || "es"; } catch { savedLanguage = "es"; }
 applyLanguage(savedLanguage === "en" ? "en" : "es");
+
+const businessForm = document.querySelector("[data-business-form]");
+const businessStatus = document.querySelector("[data-business-status]");
+const NOMADA_API_URL = "https://api-nomada.innovasoftgt.com/api/v1";
+
+function updateBusinessStatus(message, kind = "") {
+  if (!businessStatus) return;
+  businessStatus.textContent = message;
+  businessStatus.className = `form-status${kind ? ` is-${kind}` : ""}`;
+}
+
+businessForm?.addEventListener("submit", async (event) => {
+  event.preventDefault();
+  if (!businessForm.reportValidity()) return;
+  const submit = businessForm.querySelector("button[type='submit']");
+  const form = new FormData(businessForm);
+  const websiteOrSocial = String(form.get("website") || "").trim();
+  const payload = {
+    companyName: String(form.get("companyName") || "").trim(),
+    contactName: String(form.get("contactName") || "").trim(),
+    email: String(form.get("email") || "").trim(),
+    phone: String(form.get("phone") || "").trim(),
+    businessType: String(form.get("businessType") || "").trim(),
+    department: String(form.get("department") || "").trim(),
+    municipality: String(form.get("municipality") || "").trim(),
+    website: websiteOrSocial.startsWith("@") ? "" : (websiteOrSocial && !/^https?:\/\//i.test(websiteOrSocial) ? `https://${websiteOrSocial}` : websiteOrSocial),
+    socialHandle: websiteOrSocial.startsWith("@") ? websiteOrSocial : "",
+    interest: String(form.get("interest") || "visit_point"),
+    message: String(form.get("message") || "").trim(),
+    consent: form.get("consent") === "on",
+    websiteTrap: String(form.get("websiteTrap") || ""),
+  };
+  submit?.setAttribute("disabled", "disabled");
+  updateBusinessStatus("Estamos enviando la información de tu negocio…");
+  try {
+    const response = await fetch(`${NOMADA_API_URL}/business-interests`, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(payload) });
+    const body = await response.json().catch(() => ({}));
+    if (!response.ok) throw new Error(body.message || "Revisa los datos e inténtalo nuevamente.");
+    businessForm.reset();
+    updateBusinessStatus(body.message || "¡Listo! Recibimos tu solicitud y te contactaremos pronto.", "success");
+  } catch (error) {
+    updateBusinessStatus(error instanceof Error ? error.message : "No pudimos enviar la solicitud. Inténtalo nuevamente.", "error");
+  } finally {
+    submit?.removeAttribute("disabled");
+  }
+});
