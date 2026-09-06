@@ -23,7 +23,9 @@ writeFileSync(
   async fetch(request, env) {
     const response = await env.ASSETS.fetch(request);
     const contentType = response.headers.get("content-type") || "";
-    if (!contentType.includes("text/html")) return response;
+    const pathname = new URL(request.url).pathname;
+    const isHtml = contentType.includes("text/html") || pathname === "/" || pathname.endsWith(".html");
+    if (!isHtml) return response;
 
     // La clave es pública por diseño de Google Maps, pero se inyecta en ejecución
     // para no almacenarla en el repositorio ni en los archivos estáticos.
