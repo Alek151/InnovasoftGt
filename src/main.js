@@ -8,6 +8,11 @@ const demoCount = document.querySelector("[data-demo-count]");
 const toast = document.querySelector("[data-toast]");
 const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
+// El mapa es el primer momento de la historia: se presenta justo después del manifiesto.
+const manifestoSection = document.querySelector(".manifesto");
+const explorerSection = document.querySelector("#explora");
+if (manifestoSection && explorerSection) manifestoSection.insertAdjacentElement("afterend", explorerSection);
+
 const translations = {
   es: {
     pageTitle: "Nómada | Tu pasaporte de aventuras en Guatemala",
