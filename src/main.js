@@ -172,3 +172,32 @@ businessForm?.addEventListener("submit", async (event) => {
     submit?.removeAttribute("disabled");
   }
 });
+
+const travelerForm = document.querySelector("[data-traveler-form]");
+const travelerStatus = document.querySelector("[data-traveler-status]");
+function updateTravelerStatus(message, kind = "") {
+  if (!travelerStatus) return;
+  travelerStatus.textContent = message;
+  travelerStatus.className = `traveler-status${kind ? ` is-${kind}` : ""}`;
+}
+travelerForm?.addEventListener("submit", async (event) => {
+  event.preventDefault();
+  if (!travelerForm.reportValidity()) return;
+  const submit = travelerForm.querySelector("button[type='submit']");
+  const form = new FormData(travelerForm);
+  const payload = {
+    fullName: String(form.get("fullName") || "").trim(), email: String(form.get("email") || "").trim(),
+    travelerStyle: String(form.get("travelerStyle") || "all"), consent: form.get("consent") === "on", websiteTrap: String(form.get("websiteTrap") || ""),
+  };
+  submit?.setAttribute("disabled", "disabled");
+  updateTravelerStatus("Guardando tu lugar en la aventura…");
+  try {
+    const response = await fetch(`${NOMADA_API_URL}/traveler-interests`, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(payload) });
+    const body = await response.json().catch(() => ({}));
+    if (!response.ok) throw new Error(body.message || "Revisa tus datos e inténtalo nuevamente.");
+    travelerForm.reset();
+    updateTravelerStatus(body.message || "¡Listo! Ya formas parte de la lista Nómada.", "success");
+  } catch (error) {
+    updateTravelerStatus(error instanceof Error ? error.message : "No pudimos guardar tu solicitud. Inténtalo nuevamente.", "error");
+  } finally { submit?.removeAttribute("disabled"); }
+});
