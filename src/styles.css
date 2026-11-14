@@ -180,6 +180,9 @@ h1, h2, h3 { line-height: 1.12; letter-spacing: -.02em; }
 .check-list li { display: flex; gap: 11px; font-weight: 600; font-size: 15px; }
 .check-list li::before { content: "✓"; flex: none; width: 22px; height: 22px; border-radius: 50%; display: grid; place-items: center; font-size: 12px; font-weight: 800; color: #fff; background: linear-gradient(135deg, var(--sky), var(--teal)); margin-top: 1px; }
 .product-actions { display: flex; flex-wrap: wrap; gap: 12px; }
+.product-copy > p.product-price { margin: -12px 0 22px; font-size: 14.5px; font-weight: 700; color: var(--navy); }
+.product-price a { color: var(--teal-dark); font-weight: 800; }
+.product-price a:hover { text-decoration: underline; }
 
 .chat-visual { display: grid; justify-items: center; gap: 18px; }
 .phone { width: 300px; background: #0f172a; border-radius: 34px; padding: 10px; box-shadow: 0 30px 60px rgba(11, 27, 51, .25); transform: rotate(-1.5deg); }
