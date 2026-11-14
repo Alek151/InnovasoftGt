@@ -257,7 +257,10 @@ const demoScripts = {
   ]
 };
 
+let demoRun = 0;
+
 function startDemoChat() {
+  const runId = ++demoRun;
   const chat = document.querySelector("[data-demo-chat]");
   if (!chat || window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
     if (chat) {
@@ -269,9 +272,10 @@ function startDemoChat() {
   }
   const wait = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
   const run = async () => {
-    for (;;) {
+    while (runId === demoRun) {
       chat.innerHTML = "";
       for (const step of demoScripts[currentLanguage]) {
+        if (runId !== demoRun) return;
         if (step[0] === "typing") {
           const typing = addBubble(chat, "typing", "");
           typing.innerHTML = "<i></i><i></i><i></i>";
@@ -362,6 +366,7 @@ navLinks.forEach((link) => {
 languageButtons.forEach((button) => {
   button.addEventListener("click", () => {
     applyLanguage(button.dataset.langOption === "en" ? "en" : "es");
+    startDemoChat();
     setMenu(false);
   });
 });
