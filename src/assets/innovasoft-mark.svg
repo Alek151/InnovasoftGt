@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 100" role="img" aria-label="INNOVASOFT GT">
+  <path d="M33 20 11 50l22 30" fill="none" stroke="#1d2b4f" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M87 20l22 30-22 30" fill="none" stroke="#1fa8a2" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M75 29H54a10 10 0 0 0-10 10v1a10 10 0 0 0 10 10h6" fill="none" stroke="#1fa8a2" stroke-width="6.5" stroke-linecap="round"/>
+  <path d="M60 50h6a10 10 0 0 1 10 10v1a10 10 0 0 1-10 10H45" fill="none" stroke="#1d2b4f" stroke-width="6.5" stroke-linecap="round"/>
+  <circle cx="77" cy="29" r="5.2" fill="#fff" stroke="#1fa8a2" stroke-width="3.6"/>
+  <circle cx="43" cy="71" r="5.2" fill="#fff" stroke="#1d2b4f" stroke-width="3.6"/>
+  <path d="M58 29V17" stroke="#1fa8a2" stroke-width="3.6" stroke-linecap="round"/>
+  <circle cx="58" cy="15" r="3.4" fill="#1fa8a2"/>
+  <path d="M62 71v12" stroke="#1d2b4f" stroke-width="3.6" stroke-linecap="round"/>
+  <circle cx="62" cy="85" r="3.4" fill="#1d2b4f"/>
+</svg>

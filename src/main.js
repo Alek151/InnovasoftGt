@@ -26,8 +26,15 @@ const translations = {
     heroEyebrow: "Software empresarial desde Guatemala",
     heroPillTag: "Nuevo",
     heroPill: "WhatsApp Business con bots y API propia",
-    heroTitleA: "Software que pone tu",
-    heroTitleB: "operaci\u00f3n en movimiento.",
+    heroTitlePre: "Software que",
+    heroTitlePost: "tu operaci\u00f3n.",
+    marqueeTitle: "Tecnolog\u00edas y plataformas con las que trabajamos",
+    footerNav: "Empresa",
+    footerProducts: "Productos",
+    footerContact: "Contacto",
+    footerQuote: "Cotizar un proyecto",
+    footerRights: "Todos los derechos reservados.",
+    backTop: "Volver arriba",
     heroLead: "Desarrollamos plataformas, integraciones y automatizaciones para empresas que necesitan operar con m\u00e1s control, menos trabajo manual y datos confiables.",
     heroPrimary: "Hablar de mi proyecto",
     heroSecondary: "Ver productos",
@@ -133,8 +140,15 @@ const translations = {
     heroEyebrow: "Enterprise software from Guatemala",
     heroPillTag: "New",
     heroPill: "WhatsApp Business with bots and our own API",
-    heroTitleA: "Software that keeps your",
-    heroTitleB: "operations moving.",
+    heroTitlePre: "Software that",
+    heroTitlePost: "your operations.",
+    marqueeTitle: "Technologies and platforms we work with",
+    footerNav: "Company",
+    footerProducts: "Products",
+    footerContact: "Contact",
+    footerQuote: "Quote a project",
+    footerRights: "All rights reserved.",
+    backTop: "Back to top",
     heroLead: "We build platforms, integrations and automations for companies that need more control, less manual work and reliable data.",
     heroPrimary: "Discuss my project",
     heroSecondary: "View products",
@@ -227,6 +241,32 @@ const translations = {
 };
 
 let currentLanguage = "es";
+
+const rotatorWords = {
+  es: ["ordena", "conecta", "automatiza", "impulsa"],
+  en: ["organizes", "connects", "automates", "drives"]
+};
+const rotator = document.querySelector("[data-rotator]");
+const rotatorWord = document.querySelector("[data-rotator-word]");
+let rotatorIndex = 0;
+let rotatorTimer = null;
+
+function startRotator() {
+  if (!rotator || !rotatorWord) return;
+  clearInterval(rotatorTimer);
+  rotatorIndex = 0;
+  rotatorWord.textContent = rotatorWords[currentLanguage][0];
+  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  rotatorTimer = setInterval(() => {
+    rotator.classList.add("is-out");
+    setTimeout(() => {
+      const words = rotatorWords[currentLanguage];
+      rotatorIndex = (rotatorIndex + 1) % words.length;
+      rotatorWord.textContent = words[rotatorIndex];
+      rotator.classList.remove("is-out");
+    }, 350);
+  }, 2600);
+}
 
 const demoScripts = {
   es: [
@@ -366,6 +406,7 @@ navLinks.forEach((link) => {
 languageButtons.forEach((button) => {
   button.addEventListener("click", () => {
     applyLanguage(button.dataset.langOption === "en" ? "en" : "es");
+    startRotator();
     startDemoChat();
     setMenu(false);
   });
@@ -409,4 +450,39 @@ try {
 }
 
 applyLanguage(savedLanguage === "en" ? "en" : "es");
+startRotator();
 startDemoChat();
+
+// Año actual en el pie
+document.querySelectorAll("[data-year]").forEach((el) => { el.textContent = String(new Date().getFullYear()); });
+
+// Barra de progreso, botón "volver arriba" y línea de tiempo del método
+const progressBar = document.querySelector("[data-scroll-progress]");
+const backTop = document.querySelector("[data-back-top]");
+const methodList = document.querySelector(".method-list");
+let scrollTicking = false;
+function onScrollEffects() {
+  scrollTicking = false;
+  const max = document.documentElement.scrollHeight - window.innerHeight;
+  const ratio = max > 0 ? Math.min(1, window.scrollY / max) : 0;
+  progressBar?.style.setProperty("--progress", ratio.toFixed(4));
+  backTop?.classList.toggle("is-visible", window.scrollY > 700);
+  if (methodList) {
+    const r = methodList.getBoundingClientRect();
+    const seen = (window.innerHeight * 0.7 - r.top) / r.height;
+    methodList.style.setProperty("--method-progress", Math.max(0, Math.min(1, seen)).toFixed(3));
+  }
+}
+window.addEventListener("scroll", () => {
+  if (!scrollTicking) { scrollTicking = true; requestAnimationFrame(onScrollEffects); }
+}, { passive: true });
+onScrollEffects();
+
+// Luz que sigue al cursor en las tarjetas
+document.querySelectorAll(".solution-grid article, .tech-grid article").forEach((card) => {
+  card.addEventListener("pointermove", (event) => {
+    const r = card.getBoundingClientRect();
+    card.style.setProperty("--mx", (event.clientX - r.left) + "px");
+    card.style.setProperty("--my", (event.clientY - r.top) + "px");
+  });
+});

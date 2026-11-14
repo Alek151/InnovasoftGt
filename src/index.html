@@ -23,7 +23,9 @@
     <meta name="twitter:title" content="INNOVASOFT GT">
     <meta name="twitter:description" content="Software empresarial a la medida, integraciones SAP, APIs, automatización, WhatsApp Business y plataformas web en Guatemala.">
     <meta name="theme-color" content="#f7f9fc">
-    <link rel="icon" href="./assets/logo-innovasoftgt.svg" type="image/svg+xml">
+    <meta property="og:image" content="https://www.innovasoftgt.com/assets/logo-innovasoftgt.svg">
+    <link rel="icon" href="./assets/innovasoft-mark.svg" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="./assets/innovasoft-mark.svg">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -61,9 +63,13 @@
   <body>
     <a class="skip-link" href="#contenido" data-i18n="skip">Saltar al contenido principal</a>
     <header class="site-header" data-site-header>
+      <span class="scroll-progress" data-scroll-progress aria-hidden="true"></span>
       <div class="container nav-shell">
         <a class="brand" href="#inicio" aria-label="Inicio INNOVASOFT GT">
-          <img src="./assets/logo-innovasoftgt-color.svg" alt="INNOVASOFT GT - Desarrollo de Software" width="210" height="56">
+          <span class="logo ">
+            <img class="logo-mark" src="./assets/innovasoft-mark.svg" alt="" width="52" height="44">
+            <span class="logo-text"><span class="logo-name"><b>INNOVA</b><i>SOFT</i><sup>GT</sup></span><span class="logo-tag">Desarrollo de software</span></span>
+          </span>
         </a>
         <button class="menu-button" type="button" data-menu-button aria-expanded="false" aria-controls="navegacion-principal" aria-label="Abrir navegación" data-i18n-aria-label="menuLabel">
           <span></span>
@@ -96,7 +102,7 @@
         <div class="container hero-layout">
           <div class="hero-copy">
             <p class="pill"><span class="pill-tag" data-i18n="heroPillTag">Nuevo</span><span data-i18n="heroPill">WhatsApp Business con bots y API propia</span></p>
-            <h1 id="hero-title"><span data-i18n="heroTitleA">Software que pone tu</span> <span class="grad" data-i18n="heroTitleB">operación en movimiento.</span></h1>
+            <h1 id="hero-title"><span data-i18n="heroTitlePre">Software que</span> <span class="rotator" data-rotator aria-hidden="false"><span class="grad" data-rotator-word>ordena</span></span><br><span data-i18n="heroTitlePost">tu operación.</span></h1>
             <p class="hero-lead" data-i18n="heroLead">Desarrollamos plataformas, integraciones y automatizaciones para empresas que necesitan operar con más control, menos trabajo manual y datos confiables.</p>
             <div class="hero-actions">
               <a class="button primary" href="mailto:contacto@innovasoftgt.com" data-i18n="heroPrimary">Hablar de mi proyecto</a>
@@ -145,6 +151,12 @@
             </div>
           </div>
         </div>
+      </section>
+
+      <section class="marquee-band" aria-labelledby="marquee-title">
+        <div class="container"><p class="marquee-title" id="marquee-title" data-i18n="marqueeTitle">Tecnologías y plataformas con las que trabajamos</p></div>
+        <div class="marquee" aria-hidden="true"><div class="marquee-track"><span>React</span><span>Vue</span><span>Node.js</span><span>.NET</span><span>SAP</span><span>PostgreSQL</span><span>SQL Server</span><span>MySQL</span><span>Azure</span><span>AWS</span><span>Cloudflare</span><span>WhatsApp Business</span><span>REST</span><span>SOAP</span><span>Power BI</span><span>React</span><span>Vue</span><span>Node.js</span><span>.NET</span><span>SAP</span><span>PostgreSQL</span><span>SQL Server</span><span>MySQL</span><span>Azure</span><span>AWS</span><span>Cloudflare</span><span>WhatsApp Business</span><span>REST</span><span>SOAP</span><span>Power BI</span></div></div>
+        <p class="sr-only">React, Vue, Node.js, .NET, SAP, PostgreSQL, SQL Server, MySQL, Azure, AWS, Cloudflare, WhatsApp Business, REST, SOAP, Power BI</p>
       </section>
 
       <section class="section intro-band" aria-labelledby="intro-title">
@@ -345,18 +357,38 @@
     </main>
 
     <footer class="site-footer">
-      <div class="container footer-content">
-        <img src="./assets/logo-innovasoftgt-color.svg" alt="INNOVASOFT GT" width="160" height="43">
-        <p data-i18n="footerText">Software con propósito. Tecnología con dirección.</p>
-        <nav class="footer-links" aria-label="Enlaces del pie de página">
+      <div class="container footer-grid">
+        <div class="footer-brand">
+          <a href="#inicio" aria-label="Inicio INNOVASOFT GT"><span class="logo sm">
+            <img class="logo-mark" src="./assets/innovasoft-mark.svg" alt="" width="52" height="44">
+            <span class="logo-text"><span class="logo-name"><b>INNOVA</b><i>SOFT</i><sup>GT</sup></span><span class="logo-tag">Desarrollo de software</span></span>
+          </span></a>
+          <p data-i18n="footerText">Software con propósito. Tecnología con dirección.</p>
+          <a class="footer-mail" href="mailto:contacto@innovasoftgt.com">contacto@innovasoftgt.com</a>
+        </div>
+        <nav class="footer-col" aria-label="Navegación del sitio">
+          <h3 data-i18n="footerNav">Empresa</h3>
           <a href="#soluciones" data-i18n="navSolutions">Soluciones</a>
-          <a href="#productos" data-i18n="navProducts">Productos</a>
-          <a href="https://whatsapp-api.innovasoftgt.com/inicio" target="_blank" rel="noopener noreferrer">Plataforma Chat</a>
+          <a href="#metodo" data-i18n="navMethod">Método</a>
+          <a href="#tecnologias" data-i18n="navTech">Tecnologías</a>
           <a href="#contacto" data-i18n="navContact">Contacto</a>
         </nav>
-        <p class="copy">&copy; 2026 INNOVASOFT GT</p>
+        <nav class="footer-col" aria-label="Productos">
+          <h3 data-i18n="footerProducts">Productos</h3>
+          <a href="https://whatsapp-api.innovasoftgt.com/inicio" target="_blank" rel="noopener noreferrer">Plataforma Chat</a>
+          <a href="https://whatsapp-api.innovasoftgt.com/docs/api" target="_blank" rel="noopener noreferrer" data-i18n="chatDocs">Documentación de la API</a>
+          <a href="https://nomada.innovasoftgt.com" target="_blank" rel="noopener noreferrer">Nómada</a>
+        </nav>
+        <div class="footer-col">
+          <h3 data-i18n="footerContact">Contacto</h3>
+          <span>Guatemala</span>
+          <a href="mailto:contacto@innovasoftgt.com" data-i18n="footerQuote">Cotizar un proyecto</a>
+        </div>
+        <p class="copy">&copy; <span data-year>2026</span> INNOVASOFT GT · <span data-i18n="footerRights">Todos los derechos reservados.</span></p>
       </div>
     </footer>
+
+    <a class="back-top" href="#inicio" data-back-top aria-label="Volver arriba" data-i18n-aria-label="backTop">↑</a>
 
     <script src="./main.js" defer></script>
   </body>
