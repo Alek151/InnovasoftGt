@@ -6,7 +6,7 @@ const languageButtons = document.querySelectorAll("[data-lang-option]");
 const translatableNodes = document.querySelectorAll("[data-i18n]");
 const translatableLabels = document.querySelectorAll("[data-i18n-aria-label]");
 const revealTargets = document.querySelectorAll(
-  ".section, .solution-grid article, .method-list li, .metrics-panel article, .tech-grid article, .operations-visual, .contact-card"
+  ".section-heading, .intro-layout, .solution-grid article, .product-feature, .product-mini, .method-list li, .metrics-panel article, .tech-grid article, .operations-visual, .contact-panel"
 );
 
 const translations = {
@@ -17,20 +17,26 @@ const translations = {
     menuLabel: "Abrir navegaci\u00f3n",
     languageLabel: "Seleccionar idioma",
     navSolutions: "Soluciones",
+    navProducts: "Productos",
     navMethod: "M\u00e9todo",
     navExperience: "Experiencia",
     navTech: "Tecnolog\u00edas",
     navContact: "Contacto",
     navCta: "Cotizar proyecto",
     heroEyebrow: "Software empresarial desde Guatemala",
-    heroTitle: "INNOVASOFT GT",
+    heroPillTag: "Nuevo",
+    heroPill: "WhatsApp Business con bots y API propia",
+    heroTitleA: "Software que pone tu",
+    heroTitleB: "operaci\u00f3n en movimiento.",
     heroLead: "Desarrollamos plataformas, integraciones y automatizaciones para empresas que necesitan operar con m\u00e1s control, menos trabajo manual y datos confiables.",
     heroPrimary: "Hablar de mi proyecto",
-    heroSecondary: "Ver soluciones",
+    heroSecondary: "Ver productos",
     proofFinance: "Finanzas",
     proofSap: "SAP + APIs",
     proofAutomation: "Automatizaci\u00f3n",
+    proofWhatsapp: "WhatsApp Business",
     proofData: "Datos",
+    opsLive: "En vivo",
     opsInput: "Procesos",
     opsInputText: "Reglas, permisos, solicitudes y estados.",
     opsIntegration: "Integraci\u00f3n",
@@ -53,10 +59,27 @@ const translations = {
     solutionHrText: "Solicitudes, aprobaciones, expedientes, gesti\u00f3n documental, trazabilidad e indicadores de procesos internos.",
     solutionIntegrationTitle: "Integraciones empresariales",
     solutionIntegrationText: "Conexi\u00f3n entre SAP, ERP, CRM, APIs, servicios SOAP/REST, bases de datos y plataformas existentes.",
+    solutionChatTitle: "WhatsApp y chatbots",
+    solutionChatText: "Atenci\u00f3n por WhatsApp Business con bots, asesores, plantillas y conexi\u00f3n directa a tu CRM.",
     solutionDataTitle: "Datos y dashboards",
     solutionDataText: "Estructuras de datos, reporter\u00eda, tableros ejecutivos y vistas operativas para tomar mejores decisiones.",
-    solutionProductTitle: "Productos digitales",
-    solutionProductText: "Prototipos, MVPs y plataformas listas para evolucionar con clientes, aliados o equipos internos.",
+    productsEyebrow: "Productos propios",
+    productsTitle: "Tambi\u00e9n construimos productos que puedes usar hoy.",
+    productsText: "Plataformas desarrolladas por INNOVASOFT GT, listas para implementarse en tu empresa.",
+    chatBadge: "WhatsApp Business Cloud API",
+    chatTitle: "Plataforma Chat",
+    chatText: "Tu WhatsApp de ventas conectado directo con Meta, sin intermediarios. Bandeja para asesores, bots que se dise\u00f1an arrastrando bloques y una API lista para tu CRM.",
+    chatF1: "Bandeja compartida con asesores, roles y asignaci\u00f3n autom\u00e1tica",
+    chatF2: "Dise\u00f1ador visual de flujos y simulador de conversaci\u00f3n",
+    chatF3: "Plantillas de Meta, contactos, etiquetas y documentos",
+    chatF4: "API REST documentada y avisos en tiempo real al CRM",
+    chatCta: "Conocer la plataforma",
+    chatDocs: "Documentaci\u00f3n de la API",
+    chatOnline: "en l\u00ednea",
+    flowStart: "Inicio",
+    flowButtons: "Botones",
+    flowQuestion: "Pregunta",
+    flowAgent: "Asesor",
     methodEyebrow: "M\u00e9todo",
     methodTitle: "Primero entendemos el negocio. Luego escribimos c\u00f3digo.",
     methodText: "El software serio necesita claridad antes de construir: alcance, reglas, excepciones, datos, usuarios, seguridad y ruta de entrega.",
@@ -76,13 +99,21 @@ const translations = {
     metricScale: "Evoluci\u00f3n por etapas sin rehacer todo",
     techEyebrow: "Tecnolog\u00edas",
     techTitle: "Elegimos tecnolog\u00eda por estabilidad, mantenimiento y contexto.",
+    techData: "Datos",
+    techDataText: "SQL Server, PostgreSQL, MySQL, reporter\u00eda",
+    techCloudText: "Cloudflare, Azure, AWS, despliegues y monitoreo",
+    techBiz: "Empresa",
+    techBizText: "SAP, ERP, CRM, WhatsApp Business, flujos internos",
+    techQuality: "Calidad",
+    techQualityText: "Pruebas, documentaci\u00f3n, seguridad y versionado",
     initiativeEyebrow: "Innovaci\u00f3n propia",
-    initiativeTitle: "Tambi\u00e9n construimos productos propios.",
+    initiativeTitle: "N\u00f3mada",
     initiativeText: "N\u00f3mada es una iniciativa de INNOVASOFT GT para explorar nuevas formas de conectar turismo, tecnolog\u00eda, comunidad y experiencias digitales en Guatemala.",
     initiativeCta: "Conocer N\u00f3mada",
     contactEyebrow: "Contacto",
     contactTitle: "Cu\u00e9ntanos qu\u00e9 proceso necesitas ordenar o automatizar.",
     contactText: "Escribe con una breve descripci\u00f3n del sistema, proceso, integraci\u00f3n o idea que quieres desarrollar. Podemos ayudarte a definir una ruta realista.",
+    contactCta: "Escribir a contacto@innovasoftgt.com",
     contactRole: "Desarrollo de software empresarial",
     footerText: "Software con prop\u00f3sito. Tecnolog\u00eda con direcci\u00f3n."
   },
@@ -93,20 +124,26 @@ const translations = {
     menuLabel: "Open navigation",
     languageLabel: "Select language",
     navSolutions: "Solutions",
+    navProducts: "Products",
     navMethod: "Method",
     navExperience: "Experience",
     navTech: "Technologies",
     navContact: "Contact",
     navCta: "Quote a project",
     heroEyebrow: "Enterprise software from Guatemala",
-    heroTitle: "INNOVASOFT GT",
+    heroPillTag: "New",
+    heroPill: "WhatsApp Business with bots and our own API",
+    heroTitleA: "Software that keeps your",
+    heroTitleB: "operations moving.",
     heroLead: "We build platforms, integrations and automations for companies that need more control, less manual work and reliable data.",
     heroPrimary: "Discuss my project",
-    heroSecondary: "View solutions",
+    heroSecondary: "View products",
     proofFinance: "Finance",
     proofSap: "SAP + APIs",
     proofAutomation: "Automation",
+    proofWhatsapp: "WhatsApp Business",
     proofData: "Data",
+    opsLive: "Live",
     opsInput: "Processes",
     opsInputText: "Rules, permissions, requests and states.",
     opsIntegration: "Integration",
@@ -129,10 +166,27 @@ const translations = {
     solutionHrText: "Requests, approvals, records, document management, traceability and indicators for internal processes.",
     solutionIntegrationTitle: "Enterprise integrations",
     solutionIntegrationText: "Connectivity between SAP, ERP, CRM, APIs, SOAP/REST services, databases and existing platforms.",
+    solutionChatTitle: "WhatsApp and chatbots",
+    solutionChatText: "WhatsApp Business customer service with bots, agents, templates and a direct link to your CRM.",
     solutionDataTitle: "Data and dashboards",
     solutionDataText: "Data structures, reporting, executive dashboards and operational views for better decisions.",
-    solutionProductTitle: "Digital products",
-    solutionProductText: "Prototypes, MVPs and platforms ready to evolve with customers, partners or internal teams.",
+    productsEyebrow: "Our products",
+    productsTitle: "We also build products you can use today.",
+    productsText: "Platforms built by INNOVASOFT GT, ready to be implemented in your company.",
+    chatBadge: "WhatsApp Business Cloud API",
+    chatTitle: "Plataforma Chat",
+    chatText: "Your sales WhatsApp connected directly to Meta, with no middlemen. A shared inbox for agents, bots designed by dragging blocks and an API ready for your CRM.",
+    chatF1: "Shared inbox with agents, roles and automatic assignment",
+    chatF2: "Visual flow designer and conversation simulator",
+    chatF3: "Meta templates, contacts, tags and documents",
+    chatF4: "Documented REST API and real-time notifications to your CRM",
+    chatCta: "Explore the platform",
+    chatDocs: "API documentation",
+    chatOnline: "online",
+    flowStart: "Start",
+    flowButtons: "Buttons",
+    flowQuestion: "Question",
+    flowAgent: "Agent",
     methodEyebrow: "Method",
     methodTitle: "We understand the business first. Then we write code.",
     methodText: "Serious software needs clarity before development: scope, rules, exceptions, data, users, security and delivery path.",
@@ -152,17 +206,104 @@ const translations = {
     metricScale: "Staged evolution without rebuilding everything",
     techEyebrow: "Technologies",
     techTitle: "We choose technology for stability, maintenance and context.",
+    techData: "Data",
+    techDataText: "SQL Server, PostgreSQL, MySQL, reporting",
+    techCloudText: "Cloudflare, Azure, AWS, deployments and monitoring",
+    techBiz: "Business",
+    techBizText: "SAP, ERP, CRM, WhatsApp Business, internal workflows",
+    techQuality: "Quality",
+    techQualityText: "Testing, documentation, security and versioning",
     initiativeEyebrow: "Internal innovation",
-    initiativeTitle: "We also build our own products.",
+    initiativeTitle: "Nomada",
     initiativeText: "Nomada is an INNOVASOFT GT initiative exploring new ways to connect tourism, technology, community and digital experiences in Guatemala.",
     initiativeCta: "Explore Nomada",
     contactEyebrow: "Contact",
     contactTitle: "Tell us which process you need to organize or automate.",
     contactText: "Send a short description of the system, process, integration or idea you want to build. We can help define a realistic path.",
+    contactCta: "Write to contacto@innovasoftgt.com",
     contactRole: "Enterprise software development",
     footerText: "Software with purpose. Technology with direction."
   }
 };
+
+let currentLanguage = "es";
+
+const demoScripts = {
+  es: [
+    ["out", "Hola, quiero informaci\u00f3n de apartamentos"],
+    ["typing"],
+    ["in", "\u00a1Hola! \ud83d\udc4b Gracias por escribirnos. \u00bfEn qu\u00e9 te ayudamos?"],
+    ["opts", ["Informaci\u00f3n", "Agendar visita", "Hablar con asesor"], 1],
+    ["out", "Agendar visita"],
+    ["typing"],
+    ["in", "\u00bfQu\u00e9 d\u00eda y hora te queda bien? \ud83d\udcc5"],
+    ["out", "El s\u00e1bado a las 10 am"],
+    ["typing"],
+    ["in", "\u00a1Listo! \u2705 Un asesor confirmar\u00e1 tu visita."],
+    ["sys", "\ud83d\udc64 Chat asignado a Ana"]
+  ],
+  en: [
+    ["out", "Hi, I'd like information about apartments"],
+    ["typing"],
+    ["in", "Hi! \ud83d\udc4b Thanks for reaching out. How can we help?"],
+    ["opts", ["Information", "Book a visit", "Talk to an agent"], 1],
+    ["out", "Book a visit"],
+    ["typing"],
+    ["in", "Which day and time works for you? \ud83d\udcc5"],
+    ["out", "Saturday at 10 am"],
+    ["typing"],
+    ["in", "Done! \u2705 An agent will confirm your visit."],
+    ["sys", "\ud83d\udc64 Chat assigned to Ana"]
+  ]
+};
+
+function startDemoChat() {
+  const chat = document.querySelector("[data-demo-chat]");
+  if (!chat || window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    if (chat) {
+      chat.innerHTML = "";
+      demoScripts[currentLanguage].filter((step) => step[0] === "in" || step[0] === "out").slice(0, 4)
+        .forEach((step) => addBubble(chat, "msg " + step[0], step[1]));
+    }
+    return;
+  }
+  const wait = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+  const run = async () => {
+    for (;;) {
+      chat.innerHTML = "";
+      for (const step of demoScripts[currentLanguage]) {
+        if (step[0] === "typing") {
+          const typing = addBubble(chat, "typing", "");
+          typing.innerHTML = "<i></i><i></i><i></i>";
+          await wait(900);
+          typing.remove();
+        } else if (step[0] === "opts") {
+          const opts = addBubble(chat, "msg-opts", "");
+          step[1].forEach((label) => { const s = document.createElement("span"); s.textContent = label; opts.appendChild(s); });
+          await wait(900);
+          opts.children[step[2]].classList.add("pick");
+          await wait(500);
+        } else {
+          addBubble(chat, step[0] === "sys" ? "msg-sys" : "msg " + step[0], step[1]);
+          await wait(step[0] === "out" ? 1100 : 1300);
+        }
+      }
+      await wait(3500);
+    }
+  };
+  run();
+}
+
+function addBubble(chat, className, text) {
+  const el = document.createElement("div");
+  el.className = className;
+  el.textContent = text;
+  chat.appendChild(el);
+  while (chat.scrollHeight > chat.clientHeight + 4 && chat.children.length > 1) {
+    chat.firstElementChild.remove();
+  }
+  return el;
+}
 
 function setMenu(open) {
   menuButton?.setAttribute("aria-expanded", String(open));
@@ -200,6 +341,8 @@ function applyLanguage(language) {
   languageButtons.forEach((button) => {
     button.setAttribute("aria-pressed", String(button.dataset.langOption === language));
   });
+
+  currentLanguage = language;
 
   try {
     localStorage.setItem("innovasoftgt-language", language);
@@ -261,3 +404,4 @@ try {
 }
 
 applyLanguage(savedLanguage === "en" ? "en" : "es");
+startDemoChat();
