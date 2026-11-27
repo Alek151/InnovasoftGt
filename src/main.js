@@ -32,6 +32,12 @@ const translations = {
   }
 };
 
+Object.assign(translations.en, { soonOwnerLabel: "Holder", founderStamp: "Founder", perkEarly: "Early access to the app", perkStamp: "Founding traveler stamp", perkRoutes: "The first routes before anyone else", styleLabel: "Your travel style", styleAll: "A bit of everything", styleNature: "Nature", styleCulture: "Culture & history", styleFood: "Food", styleAdventure: "Adventure", footerCtaKicker: "Your next story", footerCtaTitle: "Guatemala is waiting for you.", footerExplore: "Explore", footerBusiness: "For businesses", footerBizApply: "Apply with your business", footerBizMap: "Appear on the map", footerAlliance: "Partnerships & routes", footerContact: "Contact", footerCA: "Central America", footerBackTop: "BACK TO TOP ✦ BACK TO TOP ✦ ", footerMade: "Made with ♥ in Guatemala", footerTag: "Discover · Visit · Stamp · Share" });
+Object.assign(translations.en, { previewKicker: "Preview on Nómada", previewNew: "★ New on Nómada", progressDone: "complete", stepBusiness: "Your business", stepContact: "How do we reach you?", stepIdea: "Your idea", interestVisit: "Appear as a place to visit", interestRoute: "Be part of a route", interestOffers: "Offer perks to travelers", interestAlliance: "Explore a full partnership" });
+Object.assign(translations.en, { ppName: "Name", ppLevel: "Level", ppLevelValue: "Volcano backpacker", ppDepartments: "of Guatemala's departments" });
+Object.assign(translations.en, { offlineNoSignal: "No signal", offlineReady: "Your route is still available", offlineSaved: "Saved on your phone", verifiedAgo: "Verified 3 days ago", privacyApprox: "Approximate location", chapterOpen: "Chapter open", chapterNext: "Next destination", chapterDream: "The big dream", worldTwo: "Central America", worldThree: "The world", bpTitle: "Boarding pass · Nómada", bpPassenger: "Passenger", bpExplorer: "Explorer", bpGate: "Gate", bpSeat: "Seat" });
+Object.assign(translations.en, { heroBadgeKicker: "New badge", heroBadge: "Volcano conqueror", progressUnit: "departments stamped" });
+
 function closeMenu() {
   menuButton?.setAttribute("aria-expanded", "false");
   navPanel?.classList.remove("is-open");
@@ -92,19 +98,28 @@ document.querySelector("[data-stamp-button]")?.addEventListener("click", () => {
 });
 
 let simulatedStamps = 8;
+const SEMUC_STAMP = '<svg viewBox="0 0 120 120"><g filter="url(#inkRough)"><ellipse cx="60" cy="60" rx="56" ry="44" fill="none" stroke="currentColor" stroke-width="3.5"/><ellipse cx="60" cy="60" rx="50" ry="38" fill="none" stroke="currentColor" stroke-width="1.2"/><text x="60" y="44" class="st-big">SEMUC</text><path d="M32 64c8-6 14 6 22 0s14 6 22 0 14 6 22 0" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/><text x="60" y="84" class="st-small">ALTA VERAPAZ · HOY</text></g></svg>';
 document.querySelector("[data-add-stamp]")?.addEventListener("click", () => {
-  if (simulatedStamps < 9) simulatedStamps += 1;
-  const score = document.querySelector("[data-passport-score]");
-  if (score) score.textContent = String(simulatedStamps).padStart(2, "0");
-  const unlockedStamp = document.querySelector(".stamp-locked");
-  if (unlockedStamp) {
-    unlockedStamp.classList.remove("stamp-locked");
-    unlockedStamp.classList.add("stamp-coral");
-    unlockedStamp.querySelector("b").textContent = "SEMUC";
-    unlockedStamp.querySelector("span").textContent = "≋";
-    unlockedStamp.querySelector("small").textContent = "ALTA VERAPAZ";
-  }
-  showToast();
+  const book = document.querySelector("[data-passport-book]");
+  const slot = document.querySelector("[data-stamp-slot].is-locked");
+  if (!book || book.classList.contains("is-stamping")) return;
+  if (!slot) { showToast(); return; }
+  book.classList.add("is-stamping");
+  window.setTimeout(() => {
+    slot.classList.remove("is-locked");
+    slot.className = "ink-stamp st-bougain just-stamped";
+    slot.style.setProperty("--r", "8deg");
+    slot.innerHTML = SEMUC_STAMP;
+    simulatedStamps = 9;
+    const score = document.querySelector("[data-passport-score]");
+    if (score) score.textContent = "09";
+    const percent = document.querySelector("[data-passport-percent]");
+    if (percent) percent.textContent = "41";
+    const cell = document.querySelector("[data-dept-grid] i:not(.on)");
+    if (cell) { cell.style.setProperty("--c", "#c2417a"); cell.classList.add("on", "is-new"); }
+    showToast();
+  }, reduceMotion ? 0 : 620);
+  window.setTimeout(() => book.classList.remove("is-stamping"), reduceMotion ? 0 : 1300);
 });
 
 const revealObserver = "IntersectionObserver" in window ? new IntersectionObserver((entries) => {
@@ -155,6 +170,47 @@ let infoWindow;
 let activeMarkers = [];
 let mapScriptPromise;
 let mapStarted = false;
+
+// Destinos destacados: si el catálogo no responde, el mapa sigue mostrando una selección curada en vez de un error.
+const FEATURED_DESTINATIONS = [
+  { id: "f-antigua", name: "Antigua Guatemala", country: "Guatemala", category: "Cultura", latitude: 14.5586, longitude: -90.7295, shortDescription: "Calles empedradas, ruinas coloniales y volcanes en cada esquina." },
+  { id: "f-atitlan", name: "Lago de Atitlán", country: "Guatemala", category: "Naturaleza", latitude: 14.6907, longitude: -91.2025, shortDescription: "Pueblos a la orilla del lago rodeados por tres volcanes." },
+  { id: "f-tikal", name: "Tikal", country: "Guatemala", category: "Sitio arqueológico", latitude: 17.222, longitude: -89.6237, shortDescription: "Templos mayas que emergen sobre la selva de Petén." },
+  { id: "f-semuc", name: "Semuc Champey", country: "Guatemala", category: "Parque nacional", latitude: 15.5333, longitude: -89.9606, shortDescription: "Pozas turquesa escalonadas sobre un puente natural de piedra." },
+  { id: "f-acatenango", name: "Volcán Acatenango", country: "Guatemala", category: "Aventura", latitude: 14.5006, longitude: -90.8758, shortDescription: "Acampa frente al Volcán de Fuego y mira sus erupciones al amanecer." },
+  { id: "f-chichi", name: "Chichicastenango", country: "Guatemala", category: "Cultura", latitude: 14.9433, longitude: -91.1111, shortDescription: "El mercado de colores y tradiciones más vivo del altiplano." },
+  { id: "f-xela", name: "Quetzaltenango", country: "Guatemala", category: "Ciudad", latitude: 14.8347, longitude: -91.5181, shortDescription: "Arquitectura neoclásica, aguas termales y cumbres cercanas." },
+  { id: "f-livingston", name: "Lívingston", country: "Guatemala", category: "Playa", latitude: 15.8269, longitude: -88.7506, shortDescription: "Cultura garífuna en el Caribe, solo accesible por el río o el mar." },
+];
+const GT_BOUNDS = { north: 17.95, south: 13.7, west: -92.3, east: -88.2 };
+
+function renderIllustratedMap(destinations) {
+  if (!mapCanvas) return;
+  mapCanvas.querySelector(".map-sketch")?.remove();
+  const sketch = document.createElement("div");
+  sketch.className = "map-sketch";
+  const points = destinations.map((destination) => ({ destination, position: positionOf(destination) })).filter((item) => item.position)
+    .map((item) => ({ ...item, x: ((item.position.lng - GT_BOUNDS.west) / (GT_BOUNDS.east - GT_BOUNDS.west)) * 100, y: ((GT_BOUNDS.north - item.position.lat) / (GT_BOUNDS.north - GT_BOUNDS.south)) * 100 }));
+  const route = [...points].sort((a, b) => a.x - b.x).map((point) => `${point.x.toFixed(1)},${point.y.toFixed(1)}`).join(" ");
+  sketch.innerHTML = `<svg class="map-sketch-route" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><polyline points="${route}"/></svg><span class="map-sketch-badge">Vista ilustrada · destinos favoritos</span>`
+    + points.map((point, index) => `<button type="button" class="map-sketch-pin" style="--x:${point.x.toFixed(2)}%;--y:${point.y.toFixed(2)}%;--pin:${categoryPin[point.destination.category] || "#24634c"};--delay:${index * 90}ms" data-sketch-id="${escapeMapHtml(point.destination.id)}"><i aria-hidden="true"></i><span>${escapeMapHtml(point.destination.name)}</span></button>`).join("");
+  sketch.querySelectorAll("[data-sketch-id]").forEach((button) => button.addEventListener("click", () => activateSketchPin(button.dataset.sketchId)));
+  mapCanvas.append(sketch);
+  mapSection?.classList.add("map-sketch-mode");
+  if (points[0]) activateSketchPin(points[0].destination.id);
+}
+
+function activateSketchPin(id) {
+  mapCanvas?.querySelectorAll(".map-sketch-pin").forEach((pin) => pin.classList.toggle("is-active", pin.dataset.sketchId === String(id)));
+  mapPreview?.querySelectorAll("[data-preview-destination]").forEach((card) => card.classList.toggle("is-active", card.dataset.previewDestination === String(id)));
+}
+
+async function showDestinations(destinations, total, countryName) {
+  setMapStatus(total, countryName);
+  showPreviewCards(destinations);
+  try { await ensureGoogleMap(); renderMarkers(destinations); }
+  catch { renderIllustratedMap(destinations); }
+}
 
 const categoryPin = {
   "Sitio arqueológico": "#b44935", "Parque nacional": "#2f7a54", "Naturaleza": "#2f7a54", "Playa": "#287d9b",
@@ -209,7 +265,9 @@ function showPreviewCards(destinations) {
   mapPreview.innerHTML = preview.map((destination, index) => `<button class="destination-card" type="button" data-preview-destination="${escapeMapHtml(destination.id)}"><small>${escapeMapHtml(destination.country || "Nómada")}</small><b>${escapeMapHtml(destination.name || destination.officialName || "Destino")}</b><span>${escapeMapHtml(destination.shortDescription || destination.description || destination.category || "Un lugar por descubrir.")}</span><em aria-hidden="true">${index + 1}</em></button>`).join("");
   mapPreview.querySelectorAll("[data-preview-destination]").forEach((button) => button.addEventListener("click", () => {
     const destination = destinations.find((item) => String(item.id) === button.dataset.previewDestination);
-    if (destination) focusDestination(destination);
+    if (!destination) return;
+    if (googleMap) focusDestination(destination);
+    else activateSketchPin(destination.id);
   }));
 }
 
@@ -287,19 +345,12 @@ async function selectCountry(countryCode = "", countryName = "") {
   mapPreview.innerHTML = '<span class="destination-placeholder"></span><span class="destination-placeholder"></span><span class="destination-placeholder"></span>';
   try {
     const payload = await fetchMapDestinations(countryCode);
-    const destinations = payload.data;
-    setMapStatus(payload.pagination.total ?? destinations.length, countryName);
-    showPreviewCards(destinations);
-    try { await ensureGoogleMap(); renderMarkers(destinations); }
-    catch {
-      mapSection?.classList.add("map-fallback-mode");
-      mapUnavailable.hidden = false;
-    }
-  } catch (error) {
-    mapSection?.classList.add("map-fallback-mode");
-    mapUnavailable.hidden = false;
-    mapUnavailable.querySelector("p").textContent = "No pudimos traer los destinos ahora. Inténtalo nuevamente en unos minutos.";
-    mapPreview.innerHTML = '<p class="destination-card"><b>El catálogo está tomando un descanso.</b><span>Vuelve a intentarlo pronto.</span></p>';
+    const destinations = payload.data.length || countryCode ? payload.data : FEATURED_DESTINATIONS;
+    await showDestinations(destinations, payload.data.length ? payload.pagination.total ?? destinations.length : destinations.length, countryName);
+  } catch {
+    // Sin catálogo: mostramos los favoritos curados en lugar de un mensaje de error.
+    await showDestinations(FEATURED_DESTINATIONS, FEATURED_DESTINATIONS.length, "Guatemala");
+    if (mapCaption) mapCaption.textContent = "Algunos favoritos para empezar tu historia. Pronto verás el catálogo completo.";
   } finally { setMapLoading(false); }
 }
 
@@ -393,9 +444,174 @@ travelerForm?.addEventListener("submit", async (event) => {
     const response = await fetch(`${NOMADA_API_URL}/traveler-interests`, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(payload) });
     const body = await response.json().catch(() => ({}));
     if (!response.ok) throw new Error(body.message || "Revisa tus datos e inténtalo nuevamente.");
+    document.querySelector(".soon-card")?.classList.add("is-joined");
     travelerForm.reset();
     updateTravelerStatus(body.message || "¡Listo! Ya formas parte de la lista Nómada.", "success");
   } catch (error) {
     updateTravelerStatus(error instanceof Error ? error.message : "No pudimos guardar tu solicitud. Inténtalo nuevamente.", "error");
   } finally { submit?.removeAttribute("disabled"); }
 });
+
+// ---- Portada viva: contadores, inclinación 3D del teléfono y parallax de la acuarela ----
+const heroSection = document.querySelector(".hero");
+const heroProduct = document.querySelector(".hero-product");
+const heroLandscape = document.querySelector(".hero-landscape");
+
+function countUp(node) {
+  const target = Number(node.dataset.countTo) || 0;
+  if (reduceMotion) { node.textContent = String(target); return; }
+  let started = performance.now();
+  const duration = 1600;
+  const tick = (now) => {
+    const progress = Math.min(1, (now - started) / duration);
+    node.textContent = String(Math.round(target * (1 - Math.pow(1 - progress, 3))));
+    if (progress < 1) requestAnimationFrame(tick);
+  };
+  node.textContent = "0";
+  const begin = () => document.documentElement.classList.contains("has-intro") ? setTimeout(begin, 200) : requestAnimationFrame((now) => { started = now; tick(now); });
+  setTimeout(begin, 700);
+}
+document.querySelectorAll("[data-count-to]").forEach(countUp);
+
+if (heroSection && heroProduct && !reduceMotion && window.matchMedia("(hover: hover) and (pointer: fine)").matches) {
+  let frame = 0;
+  heroSection.addEventListener("pointermove", (event) => {
+    if (frame) return;
+    frame = requestAnimationFrame(() => {
+      frame = 0;
+      const box = heroSection.getBoundingClientRect();
+      const x = ((event.clientX - box.left) / box.width) * 2 - 1;
+      const y = ((event.clientY - box.top) / box.height) * 2 - 1;
+      heroProduct.style.setProperty("--mx", x.toFixed(3));
+      heroProduct.style.setProperty("--my", y.toFixed(3));
+    });
+  });
+  heroSection.addEventListener("pointerleave", () => { heroProduct.style.setProperty("--mx", "0"); heroProduct.style.setProperty("--my", "0"); });
+}
+
+if (heroLandscape && !reduceMotion) {
+  let ticking = false;
+  window.addEventListener("scroll", () => {
+    if (ticking) return;
+    ticking = true;
+    requestAnimationFrame(() => {
+      ticking = false;
+      const y = Math.min(window.scrollY, 900);
+      heroLandscape.style.transform = `translate3d(0, ${(y * 0.28).toFixed(1)}px, 0) scale(1.06)`;
+    });
+  }, { passive: true });
+}
+
+// ---- Formulario de negocios: vista previa en vivo, progreso y pasos completados ----
+const interestNames = { visit_point: "Punto de visita", route_partner: "Parte de una ruta", offers: "Beneficios para viajeros", alliance: "Alianza completa" };
+function updateBusinessPreview() {
+  if (!businessForm) return;
+  const data = new FormData(businessForm);
+  const text = (name) => String(data.get(name) || "").trim();
+  const set = (selector, value) => { const node = document.querySelector(selector); if (node) node.textContent = value; };
+  set("[data-preview-name]", text("companyName") || "Tu negocio");
+  set("[data-preview-type]", text("businessType") || "Tu tipo de negocio");
+  set("[data-preview-place]", [text("municipality"), text("department")].filter(Boolean).join(", ") || "Guatemala");
+  set("[data-preview-interest]", interestNames[text("interest")] || "Punto de visita");
+  const required = [...new Set([...businessForm.querySelectorAll("[required]")].map((field) => field.name))];
+  const valid = required.filter((name) => { const field = businessForm.elements[name]; return field instanceof RadioNodeList ? Boolean(field.value) : field?.checkValidity(); }).length;
+  const percent = Math.round((valid / required.length) * 100);
+  const bar = document.querySelector("[data-form-progress]");
+  if (bar) bar.style.width = percent + "%";
+  set("[data-form-progress-label]", percent + "%");
+  businessForm.querySelectorAll("[data-form-step]").forEach((step) => {
+    const fields = [...step.querySelectorAll("[required]")];
+    step.classList.toggle("is-done", fields.length > 0 && fields.every((field) => field.type === "radio" ? Boolean(businessForm.elements[field.name].value) : field.checkValidity()));
+  });
+}
+businessForm?.addEventListener("input", updateBusinessPreview);
+businessForm?.addEventListener("change", updateBusinessPreview);
+businessForm?.addEventListener("reset", () => setTimeout(updateBusinessPreview, 0));
+updateBusinessPreview();
+
+// ---- Sé de los primeros: tu nombre aparece en el pasaporte y el estilo cambia su acento ----
+const soonCard = document.querySelector(".soon-card");
+const soonName = document.querySelector("[data-soon-name]");
+function updateSoonPassport() {
+  if (!travelerForm) return;
+  const data = new FormData(travelerForm);
+  const name = String(data.get("fullName") || "").trim();
+  if (soonName) soonName.textContent = name ? name.toUpperCase().slice(0, 28) : (document.documentElement.lang === "en" ? "Your name here" : "Tu nombre aquí");
+  if (soonCard) soonCard.dataset.style = String(data.get("travelerStyle") || "all");
+}
+travelerForm?.addEventListener("input", updateSoonPassport);
+travelerForm?.addEventListener("change", updateSoonPassport);
+updateSoonPassport();
+
+// ---- Pulido general: intro con sello, sección activa en el menú, botón flotante con progreso y botones magnéticos ----
+(() => {
+  if (reduceMotion) return;
+  // La intro del mapa se muestra en cada carga del sitio.
+  const intro = document.createElement("div");
+  intro.className = "intro-stamp intro-v2";
+  intro.setAttribute("aria-hidden", "true");
+  intro.innerHTML = "<div class=\"i2-bg\" aria-hidden=\"true\"><svg class=\"i2-rose\" viewBox=\"-50 -50 100 100\"><circle r=\"46\" fill=\"none\" stroke=\"currentColor\" stroke-width=\".6\"/><circle r=\"38\" fill=\"none\" stroke=\"currentColor\" stroke-width=\".4\" stroke-dasharray=\"1 2\"/><polygon points=\"0.0,-24.0 7.8,-7.8 24.0,-0.0 7.8,7.8 0.0,24.0 -7.8,7.8 -24.0,0.0 -7.8,-7.8\" fill=\"currentColor\" transform=\"scale(1.6)\"/></svg><div class=\"i2-particles\"><i style=\"--x:0%;--y:0%;--s:2px;--t:6s;--dl:0s\"></i><i style=\"--x:73%;--y:41%;--s:3px;--t:7s;--dl:-1s\"></i><i style=\"--x:46%;--y:82%;--s:4px;--t:8s;--dl:-2s\"></i><i style=\"--x:19%;--y:23%;--s:2px;--t:9s;--dl:-3s\"></i><i style=\"--x:92%;--y:64%;--s:3px;--t:10s;--dl:-4s\"></i><i style=\"--x:65%;--y:5%;--s:4px;--t:6s;--dl:-5s\"></i><i style=\"--x:38%;--y:46%;--s:2px;--t:7s;--dl:-6s\"></i><i style=\"--x:11%;--y:87%;--s:3px;--t:8s;--dl:0s\"></i><i style=\"--x:84%;--y:28%;--s:4px;--t:9s;--dl:-1s\"></i><i style=\"--x:57%;--y:69%;--s:2px;--t:10s;--dl:-2s\"></i><i style=\"--x:30%;--y:10%;--s:3px;--t:6s;--dl:-3s\"></i><i style=\"--x:3%;--y:51%;--s:4px;--t:7s;--dl:-4s\"></i><i style=\"--x:76%;--y:92%;--s:2px;--t:8s;--dl:-5s\"></i><i style=\"--x:49%;--y:33%;--s:3px;--t:9s;--dl:-6s\"></i></div></div><div class=\"i2-stage\"><div class=\"i2-map\"><svg class=\"i2-svg\" viewBox=\"0 0 600 360\" aria-hidden=\"true\"><defs><linearGradient id=\"i2Paper\" x1=\"0\" y1=\"0\" x2=\"1\" y2=\"1\"><stop offset=\"0\" stop-color=\"#fcf5e3\"/><stop offset=\".6\" stop-color=\"#f3e5c6\"/><stop offset=\"1\" stop-color=\"#e8d3a8\"/></linearGradient><radialGradient id=\"i2Vignette\" cx=\"50%\" cy=\"50%\" r=\"70%\"><stop offset=\".6\" stop-color=\"rgba(90,62,26,0)\"/><stop offset=\"1\" stop-color=\"rgba(90,62,26,.22)\"/></radialGradient><linearGradient id=\"i2Sea\" x1=\"0\" y1=\"0\" x2=\"1\" y2=\"1\"><stop offset=\"0\" stop-color=\"#a9d3d8\"/><stop offset=\"1\" stop-color=\"#6fb1bb\"/></linearGradient><linearGradient id=\"i2Fold\" x1=\"0\" x2=\"1\"><stop offset=\"0\" stop-color=\"rgba(90,62,26,0)\"/><stop offset=\".5\" stop-color=\"rgba(90,62,26,.13)\"/><stop offset=\"1\" stop-color=\"rgba(90,62,26,0)\"/></linearGradient><clipPath id=\"i2Clip\"><rect x=\"20\" y=\"20\" width=\"560\" height=\"320\" rx=\"8\"/></clipPath></defs>\n<rect x=\"6\" y=\"6\" width=\"588\" height=\"348\" rx=\"16\" fill=\"url(#i2Paper)\"/>\n<g clip-path=\"url(#i2Clip)\">\n<g stroke=\"rgba(90,62,26,.1)\" stroke-dasharray=\"3 6\"><path d=\"M20 80H580M20 140H580M20 200H580M20 260H580M20 320H580\"/><path d=\"M80 20V340M160 20V340M240 20V340M320 20V340M400 20V340M480 20V340M560 20V340\"/></g>\n<path d=\"M20 262 C70 272 110 300 128 340 L20 340Z\" fill=\"url(#i2Sea)\" opacity=\".75\"/><path d=\"M28 290c8-4 14 4 22 0M44 314c8-4 14 4 22 0M30 330c8-4 14 4 22 0\" fill=\"none\" stroke=\"#fffaf0\" stroke-width=\"1.4\" stroke-linecap=\"round\" opacity=\".8\"/><text class=\"i2-sea\" x=\"44\" y=\"276\">OCÉANO PACÍFICO</text>\n<path d=\"M528 20 L580 20 L580 176 C560 160 548 132 540 104 C532 74 520 46 528 20Z\" fill=\"url(#i2Sea)\" opacity=\".75\"/><path d=\"M548 60c6-3 10 3 16 0M552 96c6-3 10 3 16 0M556 136c6-3 10 3 16 0\" fill=\"none\" stroke=\"#fffaf0\" stroke-width=\"1.4\" stroke-linecap=\"round\" opacity=\".8\"/><text class=\"i2-sea\" x=\"566\" y=\"120\" transform=\"rotate(-90 566 120)\">MAR CARIBE</text>\n<path d=\"M120 50 C200 40 300 30 380 40 C460 30 520 40 530 70 C540 120 560 160 548 180 C520 200 470 210 430 240 C380 280 300 300 230 296 C170 292 120 276 90 250 C60 220 70 150 90 110 C100 80 104 60 120 50Z\" fill=\"rgba(111,143,100,.13)\" stroke=\"rgba(36,99,76,.35)\" stroke-width=\"1.4\" stroke-dasharray=\"5 4\"/>\n<g fill=\"none\" stroke=\"rgba(36,99,76,.18)\" stroke-width=\"1\"><path d=\"M70 200c40-20 80 10 120-4s70-24 110-8\"/><path d=\"M80 214c40-18 78 12 118 0s72-22 108-6\"/><circle cx=\"300\" cy=\"240\" r=\"18\"/><circle cx=\"300\" cy=\"240\" r=\"32\"/></g>\n<path d=\"M330 168 C380 176 420 160 460 168 S520 176 548 166\" fill=\"none\" stroke=\"#7fbcc4\" stroke-width=\"3\" stroke-linecap=\"round\"/>\n<ellipse cx=\"150\" cy=\"232\" rx=\"28\" ry=\"13\" fill=\"url(#i2Sea)\"/><path d=\"M134 232c5-3 9 3 14 0s9 3 14 0\" fill=\"none\" stroke=\"#fffaf0\" stroke-width=\"1.2\" stroke-linecap=\"round\"/><path class=\"i2-boat\" d=\"M0 0h10l-2 3H2z M5 0V-7l4 5z\" fill=\"#d86143\" transform=\"translate(156 236)\"/>\n<g transform=\"translate(112 214) scale(0.9)\"><path d=\"M-22 0 L-5 -30 L0 -26 L5 -31 L22 0Z\" fill=\"#7e9c7c\"/><path d=\"M-5 -30 L0 -26 L5 -31 L2 -34 L-2 -33Z\" fill=\"#fbf3df\"/><path d=\"M-22 0 L-5 -30 L-2 -12 Z\" fill=\"rgba(23,55,47,.18)\"/></g><g transform=\"translate(196 222) scale(1.1)\"><path d=\"M-22 0 L-5 -30 L0 -26 L5 -31 L22 0Z\" fill=\"#7e9c7c\"/><path d=\"M-5 -30 L0 -26 L5 -31 L2 -34 L-2 -33Z\" fill=\"#fbf3df\"/><path d=\"M-22 0 L-5 -30 L-2 -12 Z\" fill=\"rgba(23,55,47,.18)\"/><circle class=\"i2-smoke\" cx=\"1\" cy=\"-38\" r=\"4\"/><circle class=\"i2-smoke sm2\" cx=\"3\" cy=\"-38\" r=\"4\"/></g><g transform=\"translate(258 226) scale(0.8)\"><path d=\"M-22 0 L-5 -30 L0 -26 L5 -31 L22 0Z\" fill=\"#7e9c7c\"/><path d=\"M-5 -30 L0 -26 L5 -31 L2 -34 L-2 -33Z\" fill=\"#fbf3df\"/><path d=\"M-22 0 L-5 -30 L-2 -12 Z\" fill=\"rgba(23,55,47,.18)\"/><circle class=\"i2-smoke\" cx=\"1\" cy=\"-38\" r=\"4\"/><circle class=\"i2-smoke sm2\" cx=\"3\" cy=\"-38\" r=\"4\"/></g><g transform=\"translate(292 258) scale(0.7)\"><path d=\"M-22 0 L-5 -30 L0 -26 L5 -31 L22 0Z\" fill=\"#7e9c7c\"/><path d=\"M-5 -30 L0 -26 L5 -31 L2 -34 L-2 -33Z\" fill=\"#fbf3df\"/><path d=\"M-22 0 L-5 -30 L-2 -12 Z\" fill=\"rgba(23,55,47,.18)\"/></g>\n<g transform=\"translate(420 60)\"><circle r=\"6\" fill=\"#6f9a72\"/><circle cx=\"5\" cy=\"3\" r=\"5\" fill=\"#5d8a63\"/><circle cx=\"-5\" cy=\"3\" r=\"4.5\" fill=\"#7fa77f\"/></g><g transform=\"translate(440 74)\"><circle r=\"6\" fill=\"#6f9a72\"/><circle cx=\"5\" cy=\"3\" r=\"5\" fill=\"#5d8a63\"/><circle cx=\"-5\" cy=\"3\" r=\"4.5\" fill=\"#7fa77f\"/></g><g transform=\"translate(455 52)\"><circle r=\"6\" fill=\"#6f9a72\"/><circle cx=\"5\" cy=\"3\" r=\"5\" fill=\"#5d8a63\"/><circle cx=\"-5\" cy=\"3\" r=\"4.5\" fill=\"#7fa77f\"/></g><g transform=\"translate(492 66)\"><circle r=\"6\" fill=\"#6f9a72\"/><circle cx=\"5\" cy=\"3\" r=\"5\" fill=\"#5d8a63\"/><circle cx=\"-5\" cy=\"3\" r=\"4.5\" fill=\"#7fa77f\"/></g><g transform=\"translate(505 92)\"><circle r=\"6\" fill=\"#6f9a72\"/><circle cx=\"5\" cy=\"3\" r=\"5\" fill=\"#5d8a63\"/><circle cx=\"-5\" cy=\"3\" r=\"4.5\" fill=\"#7fa77f\"/></g><g transform=\"translate(430 104)\"><circle r=\"6\" fill=\"#6f9a72\"/><circle cx=\"5\" cy=\"3\" r=\"5\" fill=\"#5d8a63\"/><circle cx=\"-5\" cy=\"3\" r=\"4.5\" fill=\"#7fa77f\"/></g><g transform=\"translate(470 118)\"><circle r=\"6\" fill=\"#6f9a72\"/><circle cx=\"5\" cy=\"3\" r=\"5\" fill=\"#5d8a63\"/><circle cx=\"-5\" cy=\"3\" r=\"4.5\" fill=\"#7fa77f\"/></g><g transform=\"translate(512 120)\"><circle r=\"6\" fill=\"#6f9a72\"/><circle cx=\"5\" cy=\"3\" r=\"5\" fill=\"#5d8a63\"/><circle cx=\"-5\" cy=\"3\" r=\"4.5\" fill=\"#7fa77f\"/></g><g transform=\"translate(395 82)\"><circle r=\"6\" fill=\"#6f9a72\"/><circle cx=\"5\" cy=\"3\" r=\"5\" fill=\"#5d8a63\"/><circle cx=\"-5\" cy=\"3\" r=\"4.5\" fill=\"#7fa77f\"/></g><g transform=\"translate(488 40)\"><circle r=\"6\" fill=\"#6f9a72\"/><circle cx=\"5\" cy=\"3\" r=\"5\" fill=\"#5d8a63\"/><circle cx=\"-5\" cy=\"3\" r=\"4.5\" fill=\"#7fa77f\"/></g><g transform=\"translate(530 70)\"><circle r=\"6\" fill=\"#6f9a72\"/><circle cx=\"5\" cy=\"3\" r=\"5\" fill=\"#5d8a63\"/><circle cx=\"-5\" cy=\"3\" r=\"4.5\" fill=\"#7fa77f\"/></g><g transform=\"translate(455 140)\"><circle r=\"6\" fill=\"#6f9a72\"/><circle cx=\"5\" cy=\"3\" r=\"5\" fill=\"#5d8a63\"/><circle cx=\"-5\" cy=\"3\" r=\"4.5\" fill=\"#7fa77f\"/></g>\n<rect x=\"18\" y=\"18\" width=\"564\" height=\"324\" rx=\"10\" fill=\"url(#i2Vignette)\"/>\n</g>\n<rect x=\"18\" y=\"18\" width=\"564\" height=\"324\" rx=\"10\" fill=\"none\" stroke=\"rgba(90,62,26,.45)\" stroke-width=\"1.6\"/><rect x=\"24\" y=\"24\" width=\"552\" height=\"312\" rx=\"7\" fill=\"none\" stroke=\"rgba(90,62,26,.25)\"/>\n<rect x=\"190\" y=\"6\" width=\"34\" height=\"348\" fill=\"url(#i2Fold)\"/><rect x=\"380\" y=\"6\" width=\"34\" height=\"348\" fill=\"url(#i2Fold)\"/>\n<g class=\"i2-cartouche\" transform=\"translate(40 36)\"><rect width=\"150\" height=\"44\" rx=\"6\" fill=\"#fffaf0\" stroke=\"#b9831a\" stroke-width=\"1.5\"/><rect x=\"4\" y=\"4\" width=\"142\" height=\"36\" rx=\"4\" fill=\"none\" stroke=\"rgba(185,131,26,.45)\"/><text class=\"i2-cart-title\" x=\"75\" y=\"22\">GUATEMALA</text><text class=\"i2-cart-sub\" x=\"75\" y=\"34\">MAPA DE AVENTURAS · 2026</text></g>\n<g class=\"i2-scale\" transform=\"translate(410 318)\"><rect width=\"30\" height=\"5\" fill=\"#174d3b\"/><rect x=\"30\" width=\"30\" height=\"5\" fill=\"#fffaf0\" stroke=\"#174d3b\" stroke-width=\".8\"/><rect x=\"60\" width=\"30\" height=\"5\" fill=\"#174d3b\"/><text x=\"0\" y=\"-4\">0</text><text x=\"45\" y=\"-4\">50</text><text x=\"90\" y=\"-4\">100 KM</text></g>\n<g class=\"i2-compass\" transform=\"translate(520 288)\"><circle r=\"30\" fill=\"rgba(255,250,240,.7)\" stroke=\"rgba(90,62,26,.35)\"/><circle r=\"25\" fill=\"none\" stroke=\"rgba(90,62,26,.2)\" stroke-dasharray=\"2 3\"/><polygon points=\"0.0,-24.0 7.8,-7.8 24.0,-0.0 7.8,7.8 0.0,24.0 -7.8,7.8 -24.0,0.0 -7.8,-7.8\" fill=\"#174d3b\" opacity=\".85\"/><path d=\"M0 -24 L5 0 L0 4 L-5 0Z\" fill=\"#d86143\"/><text y=\"-33\">N</text></g>\n<path class=\"i2-route-ghost\" d=\"M150 226 C176 252 206 264 234 250 S318 186 360 152 S440 112 470 80\"/><path class=\"i2-route\" pathLength=\"100\" d=\"M150 226 C176 252 206 264 234 250 S318 186 360 152 S440 112 470 80\"/>\n<g class=\"i2-pin\" style=\"--d:0.55s\" transform=\"translate(150 226)\"><ellipse cy=\"1.5\" rx=\"7\" ry=\"2.4\" fill=\"rgba(23,55,47,.22)\"/><path d=\"M0 0C-6-8-10-12-10-18a10 10 0 1 1 20 0c0 6-4 10-10 18z\" fill=\"#2b7a8c\" stroke=\"#fffaf0\" stroke-width=\"2.2\"/><circle cy=\"-18\" r=\"3.8\" fill=\"#fffaf0\"/><g class=\"i2-check\" transform=\"translate(9 -28)\"><circle r=\"7\" fill=\"#fffaf0\" stroke=\"#2b7a8c\" stroke-width=\"1.6\"/><path d=\"M-3 0l2 2.4 4-4.4\" fill=\"none\" stroke=\"#2b7a8c\" stroke-width=\"1.8\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/></g><g class=\"i2-tag\" transform=\"translate(-38 6)\"><rect x=\"-27\" y=\"-8\" width=\"54\" height=\"15\" rx=\"7.5\" fill=\"#fffaf0\" stroke=\"rgba(90,62,26,.25)\"/><text y=\"3\">ATITLÁN</text></g></g><g class=\"i2-pin\" style=\"--d:1.05s\" transform=\"translate(234 250)\"><ellipse cy=\"1.5\" rx=\"7\" ry=\"2.4\" fill=\"rgba(23,55,47,.22)\"/><path d=\"M0 0C-6-8-10-12-10-18a10 10 0 1 1 20 0c0 6-4 10-10 18z\" fill=\"#d86143\" stroke=\"#fffaf0\" stroke-width=\"2.2\"/><circle cy=\"-18\" r=\"3.8\" fill=\"#fffaf0\"/><g class=\"i2-check\" transform=\"translate(9 -28)\"><circle r=\"7\" fill=\"#fffaf0\" stroke=\"#d86143\" stroke-width=\"1.6\"/><path d=\"M-3 0l2 2.4 4-4.4\" fill=\"none\" stroke=\"#d86143\" stroke-width=\"1.8\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/></g><g class=\"i2-tag\" transform=\"translate(0 26)\"><rect x=\"-27\" y=\"-8\" width=\"54\" height=\"15\" rx=\"7.5\" fill=\"#fffaf0\" stroke=\"rgba(90,62,26,.25)\"/><text y=\"3\">ANTIGUA</text></g></g><g class=\"i2-pin\" style=\"--d:1.65s\" transform=\"translate(360 152)\"><ellipse cy=\"1.5\" rx=\"7\" ry=\"2.4\" fill=\"rgba(23,55,47,.22)\"/><path d=\"M0 0C-6-8-10-12-10-18a10 10 0 1 1 20 0c0 6-4 10-10 18z\" fill=\"#24634c\" stroke=\"#fffaf0\" stroke-width=\"2.2\"/><circle cy=\"-18\" r=\"3.8\" fill=\"#fffaf0\"/><g class=\"i2-check\" transform=\"translate(9 -28)\"><circle r=\"7\" fill=\"#fffaf0\" stroke=\"#24634c\" stroke-width=\"1.6\"/><path d=\"M-3 0l2 2.4 4-4.4\" fill=\"none\" stroke=\"#24634c\" stroke-width=\"1.8\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/></g><g class=\"i2-tag\" transform=\"translate(34 8)\"><rect x=\"-27\" y=\"-8\" width=\"54\" height=\"15\" rx=\"7.5\" fill=\"#fffaf0\" stroke=\"rgba(90,62,26,.25)\"/><text y=\"3\">SEMUC</text></g></g>\n<g class=\"i2-traveler\"><circle r=\"11\" class=\"i2-traveler-glow\"/><circle r=\"6\" fill=\"#2b7a8c\" stroke=\"#fffaf0\" stroke-width=\"2.4\"/></g>\n</svg><span class=\"i2-ink\"></span><span class=\"i2-splat p1\"></span><span class=\"i2-splat p2\"></span><span class=\"i2-splat p3\"></span><span class=\"i2-splat p4\"></span><span class=\"i2-splat p5\"></span><div class=\"i2-seal\"><svg class=\"i2-ring\" viewBox=\"0 0 200 200\" aria-hidden=\"true\"><defs><path id=\"i2RingPath\" d=\"M100 100 m-82 0 a82 82 0 1 1 164 0 a82 82 0 1 1 -164 0\"/></defs><circle cx=\"100\" cy=\"100\" r=\"96\" fill=\"rgba(255,250,240,.92)\" stroke=\"#d86143\" stroke-width=\"4\"/><circle cx=\"100\" cy=\"100\" r=\"90\" fill=\"none\" stroke=\"#d86143\" stroke-width=\"1.4\"/><circle cx=\"100\" cy=\"100\" r=\"68\" fill=\"none\" stroke=\"#d86143\" stroke-width=\"1.4\" stroke-dasharray=\"3 4\"/><text class=\"i2-ring-text\"><textPath href=\"#i2RingPath\">VISITA VERIFICADA ✦ TIKAL · PETÉN ✦ SELLO Nº 08 ✦</textPath></text></svg><span class=\"i2-logo\"><svg viewBox=\"0 0 48 48\"><use href=\"#nomada-logo\"/></svg></span></div><span class=\"i2-sealed\">✓ TIKAL · SELLADO</span></div><div class=\"i2-title\"><span style=\"--i:0\">N</span><span style=\"--i:1\">Ó</span><span style=\"--i:2\">M</span><span style=\"--i:3\">A</span><span style=\"--i:4\">D</span><span style=\"--i:5\">A</span></div><div class=\"i2-tagline\">Guatemala no se visita. <em>Se colecciona.</em></div><div class=\"i2-skip\">Toca para saltar</div></div><div class=\"i2-loader\" aria-hidden=\"true\"><span></span></div>";
+  document.documentElement.classList.add("has-intro");
+  document.body.append(intro);
+  let finished = false;
+  const finish = () => {
+    if (finished) return;
+    finished = true;
+    intro.classList.add("is-done");
+    document.documentElement.classList.remove("has-intro");
+    window.setTimeout(() => intro.remove(), 900);
+  };
+  const route = intro.querySelector(".i2-route");
+  const traveler = intro.querySelector(".i2-traveler");
+  if (route && traveler && route.getTotalLength) {
+    const length = route.getTotalLength();
+    const ease = (t) => t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+    const place = (t) => { const p = route.getPointAtLength(length * ease(t)); traveler.setAttribute("transform", `translate(${p.x.toFixed(1)} ${p.y.toFixed(1)})`); };
+    place(0);
+    const startAt = performance.now() + 550;
+    const step = (now) => { const t = Math.min(1, Math.max(0, (now - startAt) / 1750)); place(t); if (t < 1 && !finished) requestAnimationFrame(step); };
+    requestAnimationFrame(step);
+  }
+  intro.addEventListener("click", finish);
+  window.setTimeout(finish, 4400);
+})();
+
+const navSectionLinks = [...document.querySelectorAll('.primary-nav > a[href^="#"]:not(.nav-cta)')];
+if ("IntersectionObserver" in window && navSectionLinks.length) {
+  const spy = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) navSectionLinks.forEach((link) => link.classList.toggle("is-current", link.getAttribute("href") === `#${entry.target.id}`));
+    });
+  }, { rootMargin: "-45% 0px -50% 0px" });
+  navSectionLinks.map((link) => document.querySelector(link.getAttribute("href"))).filter(Boolean).forEach((section) => spy.observe(section));
+}
+
+const fabTop = document.createElement("a");
+fabTop.className = "fab-top";
+fabTop.href = "#inicio";
+fabTop.setAttribute("aria-label", "Volver arriba");
+fabTop.innerHTML = '<svg viewBox="0 0 48 48" aria-hidden="true"><circle class="fab-track" cx="24" cy="24" r="21"/><circle class="fab-value" cx="24" cy="24" r="21" pathLength="100"/></svg><b aria-hidden="true">↑</b>';
+document.body.append(fabTop);
+const fabValue = fabTop.querySelector(".fab-value");
+let fabTicking = false;
+window.addEventListener("scroll", () => {
+  if (fabTicking) return;
+  fabTicking = true;
+  requestAnimationFrame(() => {
+    fabTicking = false;
+    const max = document.documentElement.scrollHeight - window.innerHeight;
+    const progress = max > 0 ? window.scrollY / max : 0;
+    fabTop.classList.toggle("is-visible", window.scrollY > 700);
+    fabValue?.setAttribute("stroke-dashoffset", String(100 - progress * 100));
+  });
+}, { passive: true });
+
+if (!reduceMotion && window.matchMedia("(hover: hover) and (pointer: fine)").matches) {
+  document.querySelectorAll(".button.primary, .nav-cta, .stamp-action").forEach((button) => {
+    button.addEventListener("pointermove", (event) => {
+      const box = button.getBoundingClientRect();
+      button.style.translate = `${(((event.clientX - box.left) / box.width) - 0.5) * 10}px ${(((event.clientY - box.top) / box.height) - 0.5) * 8}px`;
+    });
+    button.addEventListener("pointerleave", () => { button.style.translate = ""; });
+  });
+}
