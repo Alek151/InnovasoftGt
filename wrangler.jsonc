@@ -4,6 +4,8 @@
   "main": "dist/server/index.js",
   "compatibility_date": "2026-07-24",
   "compatibility_flags": ["nodejs_compat"],
+  // Conserva las variables definidas en el panel de Cloudflare (p. ej. GOOGLE_MAPS_API_KEY) en cada despliegue.
+  "keep_vars": true,
   "routes": [
     {
       "pattern": "nomada.innovasoftgt.com",
