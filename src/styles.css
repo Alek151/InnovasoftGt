@@ -932,3 +932,24 @@ html.has-intro .hero *,html.has-intro .hero{animation-play-state:paused!importan
 @media (max-width:640px){.i2-seal,.i2-ink{width:98px}.i2-sealed{top:calc(22.2% + 54px)}}
 @media (max-width:360px) and (orientation:portrait){.i2-map{width:min(112vw,calc((100svh - 230px) * 1.667));margin-inline:calc((100vw - min(112vw,calc((100svh - 230px) * 1.667))) / 2)}.i2-seal,.i2-ink{width:86px}.i2-sealed{translate:-78% 0;top:calc(22.2% + 46px)}.i2-title{font-size:2.2rem}}
 @media (max-height:520px) and (orientation:landscape){.i2-stage{gap:4px;padding:10px 16px 18px}.i2-map{width:min(94vw,calc((100svh - 120px) * 1.667))}.i2-title{margin-top:4px;font-size:1.8rem}.i2-tagline{font-size:.9rem}.i2-skip{display:none}.i2-seal,.i2-ink{width:clamp(70px,20%,120px)}.i2-sealed{top:calc(22.2% + 40px);font-size:.5rem;padding:3px 8px}}
+
+/* ===== Recuerdos: carrusel en teléfonos ===== */
+.photo-track{display:contents}
+.photo-dots{display:none}
+@media (max-width:640px){
+  .community-visual{min-height:0;margin-inline:-14px;transform:none}
+  .community-copy{margin-top:0}
+  .photo-track{display:flex;gap:16px;overflow-x:auto;padding:30px 12vw 26px;scroll-snap-type:x mandatory;scroll-padding:0 12vw;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+  .photo-track::-webkit-scrollbar{display:none}
+  .community-visual .photo-card{position:relative;left:auto;right:auto;top:auto;flex:0 0 76vw;max-width:300px;height:min(108vw,400px);transform:rotate(-2deg) scale(.94);scroll-snap-align:center;transition:transform .35s ease,box-shadow .35s ease}
+  .community-visual .photo-card:nth-child(2){transform:rotate(2deg) scale(.94)}
+  .community-visual .photo-card.is-current{transform:rotate(-1deg) scale(1)}
+  .community-visual:hover .photo-one,.community-visual:hover .photo-two,.community-visual:hover .photo-three{translate:none}
+  .photo-one{background-position:0 0,94% 76%}.photo-two{background-position:0 0,58% 98%}.photo-three{background-position:0 0,8% 96%}
+  .photo-dots{display:flex;justify-content:center;gap:8px;margin:0 0 14px}
+  .photo-dots i{width:8px;height:8px;border-radius:999px;background:rgba(23,55,47,.22);transition:width .3s ease,background .3s ease}
+  .photo-dots i.is-active{width:24px;background:var(--terracotta)}
+  .community-visual .badge-card{position:relative;left:auto;bottom:auto;width:auto;max-width:330px;margin:0 auto;transform:rotate(-1deg)}
+}
+.community-grid>*{min-width:0}
+@media (max-width:640px){.photo-track{max-width:100vw}}

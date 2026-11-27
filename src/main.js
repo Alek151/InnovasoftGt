@@ -546,7 +546,10 @@ updateSoonPassport();
 // ---- Pulido general: intro con sello, sección activa en el menú, botón flotante con progreso y botones magnéticos ----
 (() => {
   if (reduceMotion) return;
-  // La intro del mapa se muestra en cada carga del sitio.
+  // La intro se muestra una sola vez por visita: al recargar no se repite (?intro la fuerza para revisarla).
+  let seen = false;
+  try { seen = sessionStorage.getItem("nomada-intro") === "1"; sessionStorage.setItem("nomada-intro", "1"); } catch { seen = false; }
+  if (seen && !new URLSearchParams(window.location.search).has("intro")) return;
   const intro = document.createElement("div");
   intro.className = "intro-stamp intro-v2";
   intro.setAttribute("aria-hidden", "true");
@@ -615,3 +618,15 @@ if (!reduceMotion && window.matchMedia("(hover: hover) and (pointer: fine)").mat
     button.addEventListener("pointerleave", () => { button.style.translate = ""; });
   });
 }
+
+// ---- Recuerdos: en teléfonos las fotos son un carrusel deslizable con indicadores ----
+const photoTrack = document.querySelector("[data-photo-track]");
+const photoDots = [...document.querySelectorAll("[data-photo-dots] i")];
+photoTrack?.addEventListener("scroll", () => {
+  const cards = [...photoTrack.children];
+  const center = photoTrack.scrollLeft + photoTrack.clientWidth / 2;
+  let active = 0;
+  cards.forEach((card, index) => { if (Math.abs(card.offsetLeft + card.offsetWidth / 2 - center) < Math.abs(cards[active].offsetLeft + cards[active].offsetWidth / 2 - center)) active = index; });
+  photoDots.forEach((dot, index) => dot.classList.toggle("is-active", index === active));
+  cards.forEach((card, index) => card.classList.toggle("is-current", index === active));
+}, { passive: true });
